@@ -1,9 +1,10 @@
--- recommended from Project Step 2 specs page
+--recommended from Project Step 2 specs page--
 SET FOREIGN_KEY_CHECKS = 0;
 SET AUTOCOMMIT = 0;
 
 -- [your SQL goes here]
 
+--Create Passengers table--
 CREATE OR REPLACE TABLE Passengers (
     passengerID int NOT NULL AUTO_INCREMENT,
     firstName varchar(50),
@@ -16,10 +17,24 @@ CREATE OR REPLACE TABLE Passengers (
 );
 
 
+--Add data into Passengers table--
 
 
+--Create CreditCards table--
+CREATE OR REPLACE TABLE CreditCards (
+    creditCardID int NOT NULL AUTO_INCREMENT,
+    passengerID int NOT NULL,
+    number int NOT NULL,
+    expiration int NOT NULL,
+    securityCode int NOT NULL,
+    PRIMARY KEY (creditCardID),
+    FOREIGN KEY (passengerID) REFERENCES Passengers(passengerID)
+);
+
+--Add data into CreditCards table--
 
 
+--Create Airports table--
 
 
 
