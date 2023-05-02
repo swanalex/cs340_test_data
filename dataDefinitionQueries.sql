@@ -44,7 +44,6 @@ CREATE OR REPLACE TABLE Airports (
     name varchar(50),
     code varchar(50),
     PRIMARY KEY (airportID)
-    ON DELETE CASCADE
 );
 
 
