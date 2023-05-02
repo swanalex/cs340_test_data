@@ -35,6 +35,18 @@ CREATE OR REPLACE TABLE CreditCards (
 
 
 --Create Airports table--
+CREATE OR REPLACE TABLE Airports (
+    airportID int NOT NULL AUTO_INCREMENT,
+    city text(50) NOT NULL,
+    state text(50),
+    country text(50) NOT NULL,
+    name varchar(50),
+    code varchar(50),
+    PRIMARY KEY (airportID)
+);
+
+
+--Add data into Airports table--
 
 
 
