@@ -29,6 +29,7 @@ CREATE OR REPLACE TABLE CreditCards (
     securityCode int NOT NULL,
     PRIMARY KEY (creditCardID),
     FOREIGN KEY (passengerID) REFERENCES Passengers(passengerID)
+    ON DELETE CASCADE
 );
 
 --Add data into CreditCards table--
@@ -43,6 +44,7 @@ CREATE OR REPLACE TABLE Airports (
     name varchar(50),
     code varchar(50),
     PRIMARY KEY (airportID)
+    ON DELETE CASCADE
 );
 
 
@@ -50,7 +52,25 @@ CREATE OR REPLACE TABLE Airports (
 
 
 
+--Create Flights table--
+CREATE OR REPLACE TABLE Flights (
+    flightID int NOT NULL AUTO_INCREMENT,
+    originAirportID int NOT NULL,
+    destinationAirportID int NOT NULL,
+    airline varchar(50),
+    duration int,
+    numberOfSeats int,
+    date date,
+    departureTime varchar(50),
+    arrivalTime varchar(50),
+    PRIMARY KEY (flightID),
+    FOREIGN KEY (originAirportID) REFERENCES Airports(airportID),
+    FOREIGN KEY (destinationAirportID) REFERENCES Airports(airportID)
+    ON DELETE CASCADE
+);
 
+
+--Add data into Flights table--
 
 
 
