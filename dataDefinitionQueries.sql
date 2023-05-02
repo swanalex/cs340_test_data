@@ -73,6 +73,21 @@ CREATE OR REPLACE TABLE Flights (
 --Add data into Flights table--
 
 
+--Create Tickets table--
+CREATE OR REPLACE TABLE Tickets (
+    ticketID int NOT NULL AUTO_INCREMENT,
+    passengerID int NOT NULL,
+    flightID int NOT NULL,
+    price decimal(10,2),
+    seatNumber varchar(10) NOT NULL,
+    PRIMARY KEY (ticketID),
+    FOREIGN KEY (passengerID) REFERENCES Passengers(passengerID),
+    FOREIGN KEY (flightID) REFERENCES Flights(flightID)
+    ON DELETE CASCADE
+);
+
+
+--Add data into Tickets table--
 
 
 
