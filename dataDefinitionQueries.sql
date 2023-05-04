@@ -24,7 +24,7 @@ CREATE OR REPLACE TABLE Passengers (
 CREATE OR REPLACE TABLE CreditCards (
     creditCardID int NOT NULL AUTO_INCREMENT,
     passengerID int NOT NULL,
-    number int NOT NULL,
+    number varchar(50) NOT NULL,
     expiration int NOT NULL,
     securityCode int NOT NULL,
     PRIMARY KEY (creditCardID),
