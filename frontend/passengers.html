@@ -1,0 +1,136 @@
+<html>
+
+<head>
+  <title>Sky-Scan</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Sky-Scan</h1>
+
+  [ <a href="index.html">Airports</a> | <a href="passengers.html">Passengers</a> | <a href="creditcards.html">Credit
+    Cards</a> | <a href="flights.html">Flights</a> | <a href="tickets.html">Tickets</a>]
+  <div id="browse" style="display: block">
+    <p><strong>Browse Passengers</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>PassengerID</th>
+        <th>firstName</th>
+        <th>lastName</th>
+        <th>streetAddress</th>
+        <th>city</th>
+        <th>state</th>
+        <th>country</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">1</td>
+        <td>John</td>
+        <td>Doe</td>
+        <td>123 Main St</td>
+        <td>Springfield</td>
+        <td>CA</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">2</td>
+        <td>Jane</td>
+        <td>Doe</td>
+        <td>456 Elm St</td>
+        <td>Austin</td>
+        <td>TX</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">3</td>
+        <td>Bob</td>
+        <td>Smith</td>
+        <td>789 Oak St</td>
+        <td>Miami</td>
+        <td>FL</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">4</td>
+        <td>Alice</td>
+        <td>Johnson</td>
+        <td>321 Pine St</td>
+        <td>Brooklyn</td>
+        <td>NY</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">5</td>
+        <td>David</td>
+        <td>Lee</td>
+        <td>654 Maple St</td>
+        <td>Seattle</td>
+        <td>WA</td>
+        <td>USA</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+  </div> <!-- browse -->
+
+  <div id="insert" style="display: block">
+    <form id="createPassenger">
+      <legend><strong>Create Passenger</strong></legend>
+      <fieldset class="fields">
+        <label> First Name </label> <input type="text" name="fname">
+        <label> Last Name </label> <input type="text" name="lname">
+        <label> Street Address </label> <input type="text" name="address">
+        <label> City </label> <input type="text" name="city">
+        <label> State </label> <input type="text" name="state">
+        <label> Country </label> <input type="text" name="country">
+      </fieldset>
+      <input class="btn" type="submit" id="createPassenger" value="Create a Passenger">
+      <input class="btn" type="button" value="cancel">
+    </form> <!--add new passenger-->
+  </div><!-- insert -->
+
+  <p>&nbsp;</p>
+  <div id="update" style="display: block">
+    <form id="updatePassenger">
+      <legend><strong>Update Passenger</strong></legend>
+      <fieldset class="fields">
+        <label>ID:</label> 1
+        <label> First Name </label> <input type="text" name="fname">
+        <label> Last Name </label> <input type="text" name="lname">
+        <label> Street Address </label> <input type="text" name="address">
+        <label> City </label> <input type="text" name="city">
+        <label> State </label> <input type="text" name="state">
+        <label> Country </label> <input type="text" name="country">
+      </fieldset>
+      <input class="btn" type="submit" id="UpdateSavePassenger" value="Update Passenger">
+      <input class="btn" type="button" value="cancel">
+    </form>
+  </div><!-- update -->
+  <p>&nbsp;</p>
+  <div id="delete" style="display: block">
+    <form id="deletepassenger">
+      <legend><strong>Delete Passenger</strong></legend>
+      <fieldset class="fields">
+        <p>Are you sure you wish to delete the following?</p>
+        <label>ID:</label> 1
+        <label> firstName: </label> John
+        <label> lastName: </label> Doe
+
+      </fieldset>
+      <input class="btn" type="submit" id="Deletepassenger" value="Delete Passenger">
+      <input class="btn" type="button" value="cancel">
+    </form>
+  </div><!-- delete -->
+</body>
+
+</html>
