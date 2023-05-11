@@ -12,6 +12,11 @@ VALUES
 SELECT * FROM Airports;
 
 
+--query to delete an airport from the database
+
+DELETE FROM Airports WHERE Airports.airportID = :airport_ID_selected_from_browse_airports_page
+
+
 
 
 --query for adding credit card of existing passenger functionality, with colon :
@@ -30,6 +35,11 @@ SELECT
     CreditCards.number, CreditCards.expiration, CreditCards.securityCode
 FROM CreditCards
 JOIN Passengers ON CreditCards.passengerID = Passengers.passengerID;
+
+
+--query to delete a credit card from the database
+
+DELETE FROM CreditCards WHERE CreditCards.creditCardID = :creditCard_ID_selected_from_browse_credit_cards_page
 
 
 
@@ -60,6 +70,11 @@ FROM
     --A1.code = 'LAX';
 
 
+--query to delete a flight from the database
+
+DELETE FROM Flights WHERE Flights.flighID = :flights_ID_selected_from_browse_flights_page
+
+
 
 
 --query for adding new passengers functionality, with colon : being used to denote
@@ -74,6 +89,11 @@ VALUES
 --query for reading all passenger info currently in database
 
 SELECT * FROM Passengers;
+
+
+--query to delete a passenger from the database
+
+DELETE FROM Passengers WHERE Passengers.passengerID = :passengers_ID_selected_from_browse_passengers_page
 
 
 
@@ -94,3 +114,8 @@ SELECT
     Tickets.price, Tickets.seatNumber
 FROM Tickets
 JOIN Passengers ON Tickets.passengerID = Passengers.passengerID;
+
+
+--query to delete a ticket from the database
+
+DELETE FROM Tickets WHERE Tickets.ticketID = :ticket_ID_selected_from_browse_tickets_page
