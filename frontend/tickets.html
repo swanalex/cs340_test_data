@@ -1,0 +1,120 @@
+<html>
+
+<head>
+  <title>Sky-Scan</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Sky-Scan</h1>
+
+  [ <a href="index.html">Airports</a> | <a href="passengers.html">Passengers</a> | <a href="creditcards.html">Credit
+    Cards</a> | <a href="flights.html">Flights</a> | <a href="tickets.html">Tickets</a>]
+  <div id="browse" style="display: block">
+    <p><strong>Browse Tickets</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>ticketID</th>
+        <th>passengerID (FK)</th>
+        <th>flightID (FK)</th>
+        <th>price</th>
+        <th>seatNumber</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">1</td>
+        <td>5</td>
+        <td>8</td>
+        <td>350.00</td>
+        <td>12A</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">2</td>
+        <td>10</td>
+        <td>1</td>
+        <td>250.00</td>
+        <td>23C</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">3</td>
+        <td>15</td>
+        <td>3</td>
+        <td>420.50</td>
+        <td>10B</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">4</td>
+        <td>2</td>
+        <td>9</td>
+        <td>280.00</td>
+        <td>15D</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">5</td>
+        <td>8</td>
+        <td>5</td>
+        <td>320.75</td>
+        <td>18F</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+  </div> <!-- browse -->
+
+  <div id="insert" style="display: block">
+    <form id="createTicket">
+      <legend><strong>Create Ticket</strong></legend>
+      <fieldset class="fields">
+        <label> passengerID </label> <input type="number" name="passengerID">
+        <label> flightID </label> <input type="number" name="flightID">
+        <label> price </label> <input type="decimal" name="price">
+        <label> seatNumber </label> <input type="text" name="seatNumber">
+      </fieldset>
+      <input class="btn" type="submit" id="createTicket" value="Create a Ticket">
+      <input class="btn" type="button" value="cancel">
+    </form> <!--add new ticket-->
+  </div><!-- insert -->
+
+  <p>&nbsp;</p>
+  <div id="update" style="display: block">
+    <form id="updateTicket">
+      <legend><strong>Update Ticket</strong></legend>
+      <fieldset class="fields">
+        <label>ID:</label> 1
+        <label> passengerID </label> <input type="number" name="passengerID">
+        <label> flightID </label> <input type="number" name="flightID">
+        <label> price </label> <input type="decimal" name="price">
+        <label> seatNumber </label> <input type="text" name="seatNumber">
+      </fieldset>
+      <input class="btn" type="submit" id="UpdateSaveTicket" value="Update Ticket">
+      <input class="btn" type="button" value="cancel">
+    </form>
+  </div><!-- update -->
+  <p>&nbsp;</p>
+  <div id="delete" style="display: block">
+    <form id="deleteticket">
+      <legend><strong>Delete Ticket</strong></legend>
+      <fieldset class="fields">
+        <p>Are you sure you wish to delete the following?</p>
+        <label>ID:</label> 1
+        <label> passengerID: </label> 5
+        <label> flightID: </label> 8
+
+      </fieldset>
+      <input class="btn" type="submit" id="Deleteticket" value="Delete Ticket">
+      <input class="btn" type="button" value="cancel">
+    </form>
+  </div><!-- delete -->
+</body>
+
+</html>

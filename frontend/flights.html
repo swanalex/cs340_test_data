@@ -1,0 +1,152 @@
+<html>
+
+<head>
+  <title>Sky-Scan</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Sky-Scan</h1>
+
+  [ <a href="index.html">Airports</a> | <a href="passengers.html">Passengers</a> | <a href="creditcards.html">Credit
+    Cards</a> | <a href="flights.html">Flights</a> | <a href="tickets.html">Tickets</a>]
+  <div id="browse" style="display: block">
+    <p><strong>Browse Flights</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>flightID</th>
+        <th>originAirportID (FK)</th>
+        <th>destinationAirportID (FK)</th>
+        <th>airline</th>
+        <th>duration</th>
+        <th>numberOfSeats</th>
+        <th>date</th>
+        <th>departureTime</th>
+        <th>arrivalTime</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">1</td>
+        <td>3</td>
+        <td>11</td>
+        <td>Delta Airlines</td>
+        <td>180</td>
+        <td>250</td>
+        <td>2023-05-10</td>
+        <td>09:00 AM</td>
+        <td>12:00 PM</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">2</td>
+        <td>6</td>
+        <td>19</td>
+        <td>United Airlines</td>
+        <td>120</td>
+        <td>200</td>
+        <td>2023-06-01</td>
+        <td>06:30 PM</td>
+        <td>08:30 PM</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">3</td>
+        <td>13</td>
+        <td>8</td>
+        <td>American Airlines</td>
+        <td>240</td>
+        <td>300</td>
+        <td>2023-05-25</td>
+        <td>10:00 AM</td>
+        <td>02:00 PM</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">4</td>
+        <td>5</td>
+        <td>2</td>
+        <td>Southwest Airlines</td>
+        <td>90</td>
+        <td>150</td>
+        <td>2023-05-08</td>
+        <td>03:30 PM</td>
+        <td>05:00 PM</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="right">5</td>
+        <td>16</td>
+        <td>4</td>
+        <td>Delta Airlines</td>
+        <td>150</td>
+        <td>200</td>
+        <td>2023-06-14</td>
+        <td>07:30 AM</td>
+        <td>10:00 AM</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+  </div> <!-- browse -->
+
+  <div id="insert" style="display: block">
+    <form id="createFlight">
+      <legend><strong>Create Flight</strong></legend>
+      <fieldset class="fields">
+        <label> originAirportID </label> <input type="number" name="origin">
+        <label> destinationAirportID </label> <input type="number" name="dest">
+        <label> airline </label> <input type="text" name="airline">
+        <label> duration </label> <input type="number" name="duration">
+        <label> numberOfSeats </label> <input type="number" name="seats">
+        <label> date </label> <input type="date" name="date">
+        <label> departureTime </label> <input type="text" name="departure">
+        <label> ArrivalTime </label> <input type="text" name="arrival">
+      </fieldset>
+      <input class="btn" type="submit" id="createFlight" value="Create an Flight">
+      <input class="btn" type="button" value="cancel">
+    </form> <!--add new flight-->
+  </div><!-- insert -->
+
+  <p>&nbsp;</p>
+  <div id="update" style="display: block">
+    <form id="updateFlight">
+      <legend><strong>Update Flight</strong></legend>
+      <fieldset class="fields">
+        <label>ID:</label> 1
+        <label> originAirportID </label> <input type="number" name="origin">
+        <label> destinationAirportID </label> <input type="number" name="dest">
+        <label> airline </label> <input type="text" name="airline">
+        <label> duration </label> <input type="number" name="duration">
+        <label> numberOfSeats </label> <input type="number" name="seats">
+        <label> date </label> <input type="date" name="date">
+        <label> departureTime </label> <input type="text" name="departure">
+        <label> ArrivalTime </label> <input type="text" name="arrival">
+      </fieldset>
+      <input class="btn" type="submit" id="UpdateSaveFlight" value="Update Flight">
+      <input class="btn" type="button" value="cancel">
+    </form>
+  </div><!-- update -->
+  <p>&nbsp;</p>
+  <div id="delete" style="display: block">
+    <form id="deleteflight">
+      <legend><strong>Delete Flight</strong></legend>
+      <fieldset class="fields">
+        <p>Are you sure you wish to delete the following?</p>
+        <label>ID:</label> 1
+        <label> originAirportID: </label> 3
+        <label> destinationAirportID: </label> 11
+
+      </fieldset>
+      <input class="btn" type="submit" id="Deleteflight" value="Delete Flight">
+      <input class="btn" type="button" value="cancel">
+    </form>
+  </div><!-- delete -->
+</body>
+
+</html>
