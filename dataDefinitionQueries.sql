@@ -7,8 +7,8 @@ SET AUTOCOMMIT = 0;
 --Create Passengers table--
 CREATE OR REPLACE TABLE Passengers (
     passengerID int NOT NULL AUTO_INCREMENT,
-    firstName varchar(50),
-    lastName varchar(50),
+    firstName varchar(50) NOT NULL,
+    lastName varchar(50) NOT NULL,
     streetAddress varchar(50),
     city text(50),
     state text(50),
