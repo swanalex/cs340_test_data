@@ -13,7 +13,21 @@ SELECT * FROM Airports;
 
 
 --AIRPORTS UPDATE
---your query here..
+--query for updating an airport in the database
+--prepopulating the edit boxes with current airport to edit
+SELECT airportID, city, state, country, name, code
+FROM Airports
+WHERE airportID = :airport_ID_selected_from_browse_airports_page;
+
+--once the changes are made and the SAVE button is pushed:
+UPDATE Airports
+SET
+    city = :cityInput,
+    state = :stateInput,
+    country = :countryInput,
+    name = :nameInput,
+    code = :codeInput
+WHERE airportID = airport_ID_from_the_update_form;
 
 
 --AIRPORTS DELETE
@@ -45,7 +59,20 @@ JOIN Passengers ON CreditCards.passengerID = Passengers.passengerID;
 
 
 --CREDIT CARDS UPDATE
---your query here..
+--query for updating a credit card in the database
+--prepopulating the edit boxes with current credit card to edit
+    --**NOTE: (no need to select/set passengerID also, don't 'update' the cc to belong to a new person -> just insert new cc instead)
+SELECT creditCardID, number, expiration, securityCode
+FROM CreditCards
+WHERE creditCardID = :creditCard_ID_selected_from_browse_creditCards_page;
+
+--once the changes are made and the SAVE button is pushed:
+UPDATE CreditCards
+SET
+    number = :numberInput,
+    expiration = :expirationInput,
+    securityCode = :securityCodeInput
+WHERE creditCardID = creditCard_ID_from_the_update_form;
 
 
 --CREDIT CARDS DELETE
@@ -87,7 +114,23 @@ FROM
 
 
 --FLIGHTS UPDATE
---your query here..
+--query for updating a flight in the database
+--prepopulating the edit boxes with current flight to edit
+    --**NOTE: (why update the origin/destination? just add a new flight -> and delete this one)
+SELECT flightID, airline, duration, numberOfSeats, date, departureTime, arrivalTime
+FROM Flights
+WHERE flightID = :flight_ID_selected_from_browse_flights_page;
+
+--once the changes are made and the SAVE button is pushed:
+UPDATE Flights
+SET
+    airline = :airlineInput,
+    duration = :durationInput,
+    numberOfSeats = :numberOfSeatsInput,
+    date = :dateInput,
+    departureTime = :departureTimeInput,
+    arrivalTime = :arrivalTimeInput
+WHERE flightID = flight_ID_from_the_update_form;
 
 
 --FLIGHTS DELETE
@@ -113,7 +156,22 @@ SELECT * FROM Passengers;
 
 
 --PASSENGERS UPDATE
---your query here..
+--query for updating a passenger in the database
+--prepopulating the edit boxes with current passenger to edit
+SELECT passengerID, firstName, lastName, streetAddress, city, state, country
+FROM Passengers
+WHERE passengerID = :passenger_ID_selected_from_browse_passengers_page;
+
+--once the changes are made and the SAVE button is pushed:
+UPDATE Passengers
+SET
+    firstName = :firstNameInput,
+    lastName = :lastNameInput,
+    streetAddress = :streetAddressInput,
+    city = :cityInput,
+    state = :stateInput,
+    country = :countryInput
+WHERE passengerID = passenger_ID_from_the_update_form;
 
 
 --PASSENGERS DELETE
@@ -154,7 +212,19 @@ JOIN Passengers ON Tickets.passengerID = Passengers.passengerID;
 
 
 --TICKETS UPDATE
---your query here..
+--query for updating a ticket in the database
+--prepopulating the edit boxes with current ticket to edit
+    --**NOTE: (why 'update' the passenger or flight the ticket is for? that would, in essence, be a 'new' ticket -> just make a new ticket)
+SELECT ticketID, price, seatNumber
+FROM Tickets
+WHERE ticketID = :ticket_ID_selected_from_browse_tickets_page;
+
+--once the changes are made and the SAVE button is pushed:
+UPDATE Tickets
+SET
+    price = :priceInput,
+    seatNumber = :seatNumberInput
+WHERE ticketID = ticket_ID_from_the_update_form;
 
 
 --TICKETS DELETE
