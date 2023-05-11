@@ -124,7 +124,8 @@ CREATE OR REPLACE TABLE Flights (
     departureTime varchar(50),
     arrivalTime varchar(50),
     PRIMARY KEY (flightID),
-    FOREIGN KEY (originAirportID) REFERENCES Airports(airportID),
+    FOREIGN KEY (originAirportID) REFERENCES Airports(airportID)
+    ON DELETE CASCADE,
     FOREIGN KEY (destinationAirportID) REFERENCES Airports(airportID)
     ON DELETE CASCADE
 );
@@ -153,7 +154,8 @@ CREATE OR REPLACE TABLE Tickets (
     price decimal(10,2),
     seatNumber varchar(10) NOT NULL,
     PRIMARY KEY (ticketID),
-    FOREIGN KEY (passengerID) REFERENCES Passengers(passengerID),
+    FOREIGN KEY (passengerID) REFERENCES Passengers(passengerID)
+    ON DELETE CASCADE,
     FOREIGN KEY (flightID) REFERENCES Flights(flightID)
     ON DELETE CASCADE
 );
