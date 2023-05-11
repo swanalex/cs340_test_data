@@ -120,8 +120,8 @@ VALUES
 --query for reading/displaying all flights (with origins & destinations) currently in database--
         --**optional : finding flights from ___ airport using WHERE clause--
 SELECT 
-    A1.code AS origin_airport,
-    A2.code AS destination_airport,
+    A1.code AS origin,
+    A2.code AS destination,
     F.airline, F.date, F.departureTime, F.arrivalTime
 FROM 
     Flights AS F

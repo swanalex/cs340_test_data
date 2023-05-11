@@ -16,54 +16,66 @@
       <tr>
         <th><a href="#">New</a></th>
         <th></th>
-        <th>ticketID</th>
+        <!-- <th>ticketID</th>
         <th>passengerID (FK)</th>
-        <th>flightID (FK)</th>
+        <th>flightID (FK)</th> -->
+        <th>firstName</th>
+        <th>lastName</th>
         <th>price</th>
         <th>seatNumber</th>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <td align="right">1</td>
+        <!-- <td align="right">1</td>
         <td>5</td>
-        <td>8</td>
+        <td>2</td> -->
+        <td>David</td>
+        <td>Lee</td>
         <td>350.00</td>
         <td>12A</td>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <td align="right">2</td>
-        <td>10</td>
+        <!-- <td align="right">2</td>
         <td>1</td>
+        <td>3</td> -->
+        <td>John</td>
+        <td>Doe</td>
         <td>250.00</td>
         <td>23C</td>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <td align="right">3</td>
-        <td>15</td>
-        <td>3</td>
+        <!-- <td align="right">3</td>
+        <td>2</td>
+        <td>3</td> -->
+        <td>Jane</td>
+        <td>Doe</td>
         <td>420.50</td>
         <td>10B</td>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <td align="right">4</td>
-        <td>2</td>
-        <td>9</td>
+        <!-- <td align="right">4</td>
+        <td>4</td>
+        <td>1</td> -->
+        <td>Alice</td>
+        <td>Johnson</td>
         <td>280.00</td>
         <td>15D</td>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <td align="right">5</td>
-        <td>8</td>
-        <td>5</td>
+        <!-- <td align="right">5</td>
+        <td>3</td>
+        <td>2</td> -->
+        <td>Bob</td>
+        <td>Smith</td>
         <td>320.75</td>
         <td>18F</td>
       </tr>
@@ -75,8 +87,30 @@
     <form id="createTicket">
       <legend><strong>Create Ticket</strong></legend>
       <fieldset class="fields">
-        <label> passengerID </label> <input type="number" name="passengerID">
-        <label> flightID </label> <input type="number" name="flightID">
+        <label> passengerID </label>
+        <select name="passengerID">
+          <option value="1">John Doe</option>
+          <option value="2">Jane Doe</option>
+          <option value="3">Bob Smith</option>
+          <option value="4">Alice Johnson</option>
+          <option value="5">David Lee</option>
+        </select>
+        <label> from: </label> 
+        <select name="origin">
+          <option value="1">ATL</option>
+          <option value="2">LAX</option>
+          <option value="3">ORD</option>
+          <option value="4">DFW</option>
+          <option value="5">DEN</option>
+        </select>
+        <label> to: </label> 
+        <select name="dest">
+          <option value="1">ATL</option>
+          <option value="2">LAX</option>
+          <option value="3">ORD</option>
+          <option value="4">DFW</option>
+          <option value="5">DEN</option>
+        </select>
         <label> price </label> <input type="decimal" name="price">
         <label> seatNumber </label> <input type="text" name="seatNumber">
       </fieldset>
@@ -91,10 +125,9 @@
       <legend><strong>Update Ticket</strong></legend>
       <fieldset class="fields">
         <label>ID:</label> 1
-        <label> passengerID </label> <input type="number" name="passengerID">
-        <label> flightID </label> <input type="number" name="flightID">
-        <label> price </label> <input type="decimal" name="price">
-        <label> seatNumber </label> <input type="text" name="seatNumber">
+        
+        <label> price </label> <input type="decimal" name="price" value="350.00">
+        <label> seatNumber </label> <input type="text" name="seatNumber" value="12A">
       </fieldset>
       <input class="btn" type="submit" id="UpdateSaveTicket" value="Update Ticket">
       <input class="btn" type="button" value="cancel">
