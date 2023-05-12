@@ -62,6 +62,10 @@ VALUES
 
 
     --READ
+--query for reading all credit cards
+SELECT * FROM CreditCards;
+
+--**Optional:
 --query for reading all credit cards (and passengers they belong to) currently in database
 SELECT 
     Passengers.firstName, Passengers.lastName,
@@ -81,6 +85,7 @@ WHERE creditCardID = :creditCard_ID_selected_from_browse_creditCards_page;
 --once the changes are made and the SAVE button is pushed:
 UPDATE CreditCards
 SET
+    passengerID = :passenger_id_from_dropdown_Input,
     number = :numberInput,
     expiration = :expirationInput,
     securityCode = :securityCodeInput
@@ -117,8 +122,12 @@ VALUES
 
 
     --READ
+--query for reading all flights
+SELECT * FROM Flights;
+
+--**Optional:
 --query for reading/displaying all flights (with origins & destinations) currently in database--
-        --**optional : finding flights from ___ airport using WHERE clause--
+        --***optional : finding flights from ___ airport using WHERE clause--
 SELECT 
     A1.code AS origin,
     A2.code AS destination,
@@ -142,6 +151,8 @@ WHERE flightID = :flight_ID_selected_from_browse_flights_page;
 --once the changes are made and the SAVE button is pushed:
 UPDATE Flights
 SET
+    originAirportID = :originAirport_id_from_dropdown_Input,
+    destinationAirportID = :destinationAirport_id_from_dropdown_Input,
     airline = :airlineInput,
     duration = :durationInput,
     numberOfSeats = :numberOfSeatsInput,
@@ -233,6 +244,10 @@ VALUES
 
 
     --READ
+--query for reading all tickets
+SELECT * FROM Tickets;
+
+--**Optional:
 --query for reading all tickets currently purchased (and who purchased them) in the database
 SELECT 
     Passengers.firstName, Passengers.lastName, 
@@ -252,6 +267,8 @@ WHERE ticketID = :ticket_ID_selected_from_browse_tickets_page;
 --once the changes are made and the SAVE button is pushed:
 UPDATE Tickets
 SET
+    passengerID = :passenger_id_from_dropdown_Input,
+    flighID = :flight_id_from_dropdown_Input,
     price = :priceInput,
     seatNumber = :seatNumberInput
 WHERE ticketID = ticket_ID_from_the_update_form;

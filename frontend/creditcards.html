@@ -16,10 +16,8 @@
       <tr>
         <th><a href="#">New</a></th>
         <th></th>
-        <!-- <th>creditCardID</th>
-        <th>passengerID (foreign key)</th> -->
-        <th>firstName</th>
-        <th>lastName</th>
+        <th>creditCardID</th>
+        <th>passengerID</th>
         <th>number</th>
         <th>expiration</th>
         <th>securityCode</th>
@@ -27,10 +25,8 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">1</td>
-        <td align="right">1</td> -->
-        <td>John</td>
-        <td>Doe</td>
+        <td align="right">1</td>
+        <td align="right">1</td>
         <td>4929196622697514</td>
         <td>0624</td>
         <td>345</td>
@@ -38,10 +34,8 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">2</td>
-        <td align="right">2</td> -->
-        <td>Jane</td>
-        <td>Doe</td>
+        <td align="right">2</td>
+        <td align="right">2</td>
         <td>5386372252677403</td>
         <td>0225</td>
         <td>148</td>
@@ -49,10 +43,8 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">3</td>
-        <td align="right">3</td> -->
-        <td>Bob</td>
-        <td>Smith</td>
+        <td align="right">3</td>
+        <td align="right">3</td>
         <td>4916586511550596</td>
         <td>1122</td>
         <td>714</td>
@@ -60,10 +52,8 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">4</td>
-        <td align="right">4</td> -->
-        <td>Alice</td>
-        <td>Johnson</td>
+        <td align="right">4</td>
+        <td align="right">4</td>
         <td>5248017824410027</td>
         <td>0923</td>
         <td>862</td>
@@ -71,10 +61,10 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">5</td>
-        <td align="right">5</td> -->
-        <td>David</td>
-        <td>Lee</td>
+        <td align="right">5</td>
+        <td align="right">5</td>
+        <!-- <td>David</td>
+        <td>Lee</td> -->
         <td>4556467551533156</td>
         <td>0525</td>
         <td>372</td>
@@ -110,7 +100,14 @@
       <legend><strong>Update Creditcard</strong></legend>
       <fieldset class="fields">
         <label>ID:</label> 1
-
+        <label> Passenger ID </label> 
+          <select name="passengerID">
+            <option value="1">John Doe</option>
+            <option value="2">Jane Doe</option>
+            <option value="3">Bob Smith</option>
+            <option value="4">Alice Johnson</option>
+            <option value="5">David Lee</option>
+          </select>
         <label> Number </label> <input type="text" name="number" value="4929196622697514">
         <label> Expiration Date </label> <input type="number" name="expdate" value="0624">
         <label> Security Code </label> <input type="number" name="securityCode" value="345">

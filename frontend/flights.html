@@ -16,11 +16,11 @@
       <tr>
         <th><a href="#">New</a></th>
         <th></th>
-        <!-- <th>flightID</th>
+        <th>flightID</th>
         <th>originAirportID (FK)</th>
-        <th>destinationAirportID (FK)</th> -->
-        <th>origin</th>
-        <th>destination</th>
+        <th>destinationAirportID (FK)</th>
+        <!-- <th>origin</th>
+        <th>destination</th> -->
         <th>airline</th>
         <th>duration</th>
         <th>numberOfSeats</th>
@@ -31,11 +31,11 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">1</td>
+        <td align="right">1</td>
         <td>1</td>
-        <td>3</td> -->
-        <td>ATL</td>
-        <td>ORD</td>
+        <td>3</td>
+        <!-- <td>ATL</td>
+        <td>ORD</td> -->
         <td>Delta Airlines</td>
         <td>180</td>
         <td>250</td>
@@ -46,11 +46,11 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">2</td>
+        <td align="right">2</td>
         <td>2</td>
-        <td>4</td> -->
-        <td>LAX</td>
-        <td>DFW</td>
+        <td>4</td>
+        <!-- <td>LAX</td>
+        <td>DFW</td> -->
         <td>United Airlines</td>
         <td>120</td>
         <td>200</td>
@@ -61,11 +61,11 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">3</td>
+        <td align="right">3</td>
         <td>3</td>
-        <td>5</td> -->
-        <td>ORD</td>
-        <td>DEN</td>
+        <td>5</td>
+        <!-- <td>ORD</td>
+        <td>DEN</td> -->
         <td>American Airlines</td>
         <td>240</td>
         <td>300</td>
@@ -76,11 +76,11 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">4</td>
+        <td align="right">4</td>
         <td>5</td>
-        <td>2</td> -->
-        <td>DEN</td>
-        <td>LAX</td>
+        <td>2</td>
+        <!-- <td>DEN</td>
+        <td>LAX</td> -->
         <td>Southwest Airlines</td>
         <td>90</td>
         <td>150</td>
@@ -91,11 +91,11 @@
       <tr>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
-        <!-- <td align="right">5</td>
+        <td align="right">5</td>
         <td>1</td>
-        <td>4</td> -->
-        <td>ATL</td>
-        <td>DFW</td>
+        <td>4</td>
+        <!-- <td>ATL</td>
+        <td>DFW</td> -->
         <td>Delta Airlines</td>
         <td>150</td>
         <td>200</td>
@@ -145,7 +145,22 @@
       <legend><strong>Update Flight</strong></legend>
       <fieldset class="fields">
         <label>ID:</label> 1
-        
+        <label> origin </label> 
+        <select name="origin">
+          <option value="1">ATL</option>
+          <option value="2">LAX</option>
+          <option value="3">ORD</option>
+          <option value="4">DFW</option>
+          <option value="5">DEN</option>
+        </select>
+        <label> destination </label> 
+        <select name="dest">
+          <option value="1">ATL</option>
+          <option value="2">LAX</option>
+          <option value="3">ORD</option>
+          <option value="4">DFW</option>
+          <option value="5">DEN</option>
+        </select>
         <label> airline </label> <input type="text" name="airline" value="Delta Airlines">
         <label> duration </label> <input type="number" name="duration" value="180">
         <label> numberOfSeats </label> <input type="number" name="seats" value="250">
@@ -165,7 +180,7 @@
         <p>Are you sure you wish to delete the following?</p>
         <label>ID:</label> 1
         <label> originAirportID: </label> 3
-        <label> destinationAirportID: </label> 11
+        <label> destinationAirportID: </label> 5
 
       </fieldset>
       <input class="btn" type="submit" id="Deleteflight" value="Delete Flight">
