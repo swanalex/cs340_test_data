@@ -65,19 +65,18 @@ VALUES
 --query for reading all credit cards
 SELECT * FROM CreditCards;
 
---**Optional:
---query for reading all credit cards (and passengers they belong to) currently in database
-SELECT 
-    Passengers.firstName, Passengers.lastName,
-    CreditCards.number, CreditCards.expiration, CreditCards.securityCode
-FROM CreditCards
-JOIN Passengers ON CreditCards.passengerID = Passengers.passengerID;
+        --**Optional:
+        --query for reading all credit cards (and passengers they belong to) currently in database
+        SELECT 
+            Passengers.firstName, Passengers.lastName,
+            CreditCards.number, CreditCards.expiration, CreditCards.securityCode
+        FROM CreditCards
+        JOIN Passengers ON CreditCards.passengerID = Passengers.passengerID;
 
 
     --UPDATE
 --query for updating a credit card in the database
 --prepopulating the edit boxes with current credit card to edit
-        --**NOTE: (no need to select/set passengerID, why 'update' the cc to belong to a new person? -> just insert new cc instead)
 SELECT creditCardID, number, expiration, securityCode
 FROM CreditCards
 WHERE creditCardID = :creditCard_ID_selected_from_browse_creditCards_page;
@@ -117,7 +116,7 @@ INSERT INTO
     Flights (originAirportID, destinationAirportID, airline, duration, 
     numberOfSeats, date, departureTime, arrivalTime)
 VALUES 
-    (:airport_id_from__dropdown_Input, :airport_id_from_dropdown_Input, :airlineInput, 
+    (:origin_airport_id_from_dropdown, :destination_airport_id_from_dropdown_Input :airlineInput, 
     :durationInput, :numberOfSeatsInput, :dateInput, :departureTimeInput, :arrivalTimeInput);
 
 
@@ -125,25 +124,24 @@ VALUES
 --query for reading all flights
 SELECT * FROM Flights;
 
---**Optional:
---query for reading/displaying all flights (with origins & destinations) currently in database--
-        --***optional : finding flights from ___ airport using WHERE clause--
-SELECT 
-    A1.code AS origin,
-    A2.code AS destination,
-    F.airline, F.date, F.departureTime, F.arrivalTime
-FROM 
-    Flights AS F
-    JOIN Airports AS A1 ON F.originAirportID = A1.airportID
-    JOIN Airports AS A2 ON F.destinationAirportID = A2.airportID;
---WHERE
-    --A1.code = 'LAX';
+        --**Optional:
+        --query for reading/displaying all flights (with origins & destinations) currently in database--
+                --***optional : finding flights from ___ airport using WHERE clause--
+        SELECT 
+            A1.code AS origin,
+            A2.code AS destination,
+            F.airline, F.date, F.departureTime, F.arrivalTime
+        FROM 
+            Flights AS F
+            JOIN Airports AS A1 ON F.originAirportID = A1.airportID
+            JOIN Airports AS A2 ON F.destinationAirportID = A2.airportID;
+        --WHERE
+            --A1.code = 'LAX';
 
 
     --UPDATE
 --query for updating a flight in the database
 --prepopulating the edit boxes with current flight to edit
-        --**NOTE: (why update the origin/destination? just add a new flight -> and delete this one)
 SELECT flightID, airline, duration, numberOfSeats, date, departureTime, arrivalTime
 FROM Flights
 WHERE flightID = :flight_ID_selected_from_browse_flights_page;
@@ -151,8 +149,8 @@ WHERE flightID = :flight_ID_selected_from_browse_flights_page;
 --once the changes are made and the SAVE button is pushed:
 UPDATE Flights
 SET
-    originAirportID = :originAirport_id_from_dropdown_Input,
-    destinationAirportID = :destinationAirport_id_from_dropdown_Input,
+    originAirportID = :origin_airport_id_from_dropdown_Input,
+    destinationAirportID = :destination_airport_id_from_dropdown_Input,
     airline = :airlineInput,
     duration = :durationInput,
     numberOfSeats = :numberOfSeatsInput,
@@ -259,7 +257,6 @@ JOIN Passengers ON Tickets.passengerID = Passengers.passengerID;
     --UPDATE
 --query for updating a ticket in the database
 --prepopulating the edit boxes with current ticket to edit
-        --**NOTE: (why 'update' the passenger or flight the ticket is for? that would, in essence, be a 'new' ticket -> just make a new ticket)
 SELECT ticketID, price, seatNumber
 FROM Tickets
 WHERE ticketID = :ticket_ID_selected_from_browse_tickets_page;
