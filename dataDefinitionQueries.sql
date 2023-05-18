@@ -45,7 +45,7 @@ INSERT INTO Passengers (firstName, lastName, streetAddress, city, state, country
 --Create CreditCards table--
 CREATE OR REPLACE TABLE CreditCards (
     creditCardID int NOT NULL AUTO_INCREMENT,
-    passengerID int NOT NULL,
+    passengerID int,
     number varchar(50) NOT NULL,
     expiration int NOT NULL,
     securityCode int NOT NULL,
