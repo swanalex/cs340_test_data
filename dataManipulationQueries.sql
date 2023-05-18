@@ -246,12 +246,16 @@ VALUES
 SELECT * FROM Tickets;
 
 --**Optional:
---query for reading all tickets currently purchased (and who purchased them) in the database
+--query for reading all tickets currently purchased in the database (FKs passengerID and flightID shown as human-readable info)
 SELECT 
-    Passengers.firstName, Passengers.lastName, 
+    CONCAT(Passengers.firstName, " ", Passengers.lastName) AS passengerFullName,
+    CONCAT(A1.code, "-", A2.code) AS originDestination,
     Tickets.price, Tickets.seatNumber
 FROM Tickets
-JOIN Passengers ON Tickets.passengerID = Passengers.passengerID;
+JOIN Passengers ON Tickets.passengerID = Passengers.passengerID
+JOIN Flights ON Tickets.flightID = Flights.flightID
+JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID
+JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID;
 
 
     --UPDATE
