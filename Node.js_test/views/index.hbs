@@ -1,0 +1,64 @@
+<!-- index.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<a href="CreditCards.hbs">Browse Credit Cards</a>
+
+{{!-- Create a table --}}
+<table id="passengersTable">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value="{{this.passengerID}}">
+            <td>{{this.passengerID}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.streetAddress}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+            <td>{{this.country}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+<h2>Adding Data using an HTML form</h2>
+<p>To add a new passenger, please enter their information below and click `Submit`!</p>
+<form id="add-passengers-form" method="POST" action="/add-passengers-form">
+    <label for="input-firstName">First Name: </label>
+    <input type="text" name="input-firstName" id="input-firstName">
+    
+    <label for="input-lastName">Last Name: </label>
+    <input type="text" name="input-lastName" id="input-lastName">
+
+    <label for="input-streetAddress">Street Address: </label>
+    <input type="text" name="input-streetAddress" id="input-streetAddress">
+
+    <label for="input-city">City: </label>
+    <input type="text" name="input-city" id="input-city">
+
+    <label for="input-age">State: </label>
+    <input type="text" name="input-state" id="input-state">
+
+    <label for="input-age">Country: </label>
+    <input type="text" name="input-country" id="input-country">
+
+    <input type="submit">
+</form>

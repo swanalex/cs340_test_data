@@ -1,0 +1,60 @@
+<!-- index.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+
+{{!-- Create a table --}}
+<table>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.creditCardID}}</td>
+            <td>{{this.passengerID}}</td>
+            <td>{{this.number}}</td>
+            <td>{{this.expiration}}</td>
+            <td>{{this.securityCode}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+<h2>Adding Data using an HTML form</h2>
+<p>To add a new credit card, please enter the information below and click Submit!</p>
+<form id="add-creditCards-form" method="POST" action="/add-creditCards-form">
+    <label for="input-passengerID">Passenger ID: </label>
+    <select name="input-passengerID" id="input-passengerID">
+        <option value="">Select a Passenger</option>
+        {{#each passengers}}
+        <option value="{{this.passengerID}}">{{this.lastName}}, {{this.firstName}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-number">Number: </label>
+    <input type="text" name="input-number" id="input-number">
+
+    <label for="input-expiration">Expiration: </label>
+    <input type="text" name="input-expiration" id="input-expiration">
+
+    <label for="input-securityCode">Security: </label>
+    <input type="text" name="input-securityCode" id="input-securityCode">
+
+    <input type="submit">
+</form>
