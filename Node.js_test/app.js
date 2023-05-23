@@ -73,6 +73,74 @@ app.get('/CreditCards.hbs', function(req, res)
 });
 
 
+
+
+app.get('/Tickets.hbs', function(req, res)
+    {  
+        let query1 = "SELECT Tickets.ticketID, CONCAT(Passengers.firstName, ' ', Passengers.lastName) AS passengerFullName, CONCAT(A1.code, '-', A2.code) AS originDestination, Tickets.price, Tickets.seatNumber FROM Tickets JOIN Passengers ON Tickets.passengerID = Passengers.passengerID JOIN Flights ON Tickets.flightID = Flights.flightID JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID ORDER BY Tickets.ticketID;";               
+        let query2 = "SELECT * FROM Passengers;";
+        let query3 = "SELECT CONCAT(a1.code, ' -> ', a2.code) AS originDestination, f.flightID FROM Flights f JOIN Airports a1 ON f.originAirportID = a1.airportID JOIN Airports a2 ON f.destinationAirportID = a2.airportID;"
+
+        db.pool.query(query1, function(error, rows, fields){
+            let tickets = rows;
+            db.pool.query(query2, function(error, rows, fields) {
+                let passengers = rows;
+                db.pool.query(query3, function(errors, rows, fields) {
+                    let flights = rows;
+                    res.render('Tickets', {data: tickets, passengers: passengers, flights: flights})
+                })
+            })                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    }); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.get('/Tickets.hbs', function(req, res)
+// {  
+//     let query1 = "SELECT CONCAT(Passengers.firstName, ' ', Passengers.lastName) AS passengerFullName, CONCAT(A1.code, '-', A2.code) AS originDestination, Tickets.price, Tickets.seatNumber, Tickets.passengerID FROM Tickets JOIN Passengers ON Tickets.passengerID = Passengers.passengerID JOIN Flights ON Tickets.flightID = Flights.flightID JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID;";               
+//     let query2 = "SELECT * FROM Passengers;";
+
+//     db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+//         let tickets = rows;
+//         db.pool.query(query2, (error, rows, fields) => {
+//             let passengers = rows;
+
+//             // BEGINNING OF NEW CODE
+
+//             // Construct an object for reference in the table
+//             // Array.map is awesome for doing something with each
+//             // element of an array.
+//             let passengermap = {}
+//             passengers.map(passenger => {
+//                 let id = parseInt(passenger.passengerID, 10);
+
+//                 passengermap[id] = passenger["firstName"] + " " + passenger["lastName"];
+//             })
+
+//             // Overwrite the homeworld ID with the name of the planet in the people object
+//             tickets = tickets.map(person => {
+//                 return Object.assign(person, {passengerID: passengermap[person.passengerID]})
+//             })
+
+//             // END OF NEW CODE
+
+//             return res.render('Tickets', {data: tickets, passengers: passengers});
+//         })
+//     })
+// });
+
+
     
 
 
@@ -140,7 +208,7 @@ app.post('/add-creditCards-form', function(req, res){
         // presents it on the screen
         else
         {
-            res.redirect('/');
+            res.redirect('/CreditCards.hbs');
         }
     })
 })
@@ -148,6 +216,54 @@ app.post('/add-creditCards-form', function(req, res){
 
 
 
+
+
+app.post('/add-tickets-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Tickets (passengerID, flightID, price, seatNumber) VALUES ('${data['add-tickets-passengerID']}', 
+        '${data['add-tickets-flightID']}', '${data['add-tickets-price']}', '${data['add-tickets-seatNumber']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/Tickets.hbs');
+        }
+    })
+})
+
+
+
+app.delete('/delete-tickets-ajax/', function(req,res,next){
+    let data = req.body;
+    let ticketID = parseInt(data.id);
+    let deleteTicket = `DELETE FROM Tickets WHERE ticketID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteTicket, [ticketID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              } else {
+                  // Run the second query
+                  res.redirect('/Tickets.hbs');
+              }
+  })});
 
 
 

@@ -1,0 +1,73 @@
+<!-- index.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<a href="/">Home</a>
+<br>
+<a href="CreditCards.hbs">Browse Credit Cards</a>
+<br>
+<a href="Tickets.hbs">Browse Tickets</a>
+
+{{!-- Create a table --}}
+<table id="ticketsTable">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.ticketID}}>
+            <td>{{this.ticketID}}</td>
+            <td>{{this.passengerFullName}}</td>
+            <td>{{this.originDestination}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.seatNumber}}</td>
+            <td>{{passengers.passengerID}}</td>
+            <td><button onclick="deleteTicket({{this.ticketID}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/deleteTicket.js"></script>
+
+
+<h2>Adding Tickets using an HTML form</h2>
+<p>To add a new Ticket, please enter the information below and click Submit!</p>
+<form id="add-tickets-form" method="POST" action="/add-tickets-form">
+    <label for="add-tickets-passengerID">Passenger ID: </label>
+    <select name="add-tickets-passengerID" id="add-tickets-passengerID">
+        <option value="">Select a Passenger</option>
+        {{#each passengers}}
+        <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="add-tickets-flightID">Select a Flight: </label>
+    <select name="add-tickets-flightID" id="add-tickets-flightID">
+        <option value="">Select a Flight</option>
+        {{#each flights}}
+        <option value="{{this.flightID}}">{{this.originDestination}}</option>
+        {{/each}}
+    </select>
+
+    <label for="add-tickets-price">Price: </label>
+    <input type="text" name="add-tickets-price" id="add-tickets-price">
+
+    <label for="add-tickets-seatNumber">Seat Number: </label>
+    <input type="text" name="add-tickets-seatNumber" id="add-tickets-seatNumber">
+
+    <input type="submit">
+</form>

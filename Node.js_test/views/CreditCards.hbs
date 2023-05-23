@@ -1,6 +1,11 @@
 <!-- index.hbs -->
 <h1>The server is running!</h1>
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<a href="/">Home</a>
+<br>
+<a href="CreditCards.hbs">Browse Credit Cards</a>
+<br>
+<a href="Tickets.hbs">Browse Tickets</a>
 
 {{!-- Create a table --}}
 <table>
@@ -43,7 +48,7 @@
     <select name="input-passengerID" id="input-passengerID">
         <option value="">Select a Passenger</option>
         {{#each passengers}}
-        <option value="{{this.passengerID}}">{{this.lastName}}, {{this.firstName}}</option>
+        <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
     
