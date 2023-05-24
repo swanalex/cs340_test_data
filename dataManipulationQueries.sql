@@ -269,7 +269,7 @@ WHERE ticketID = :ticket_ID_selected_from_browse_tickets_page;
 UPDATE Tickets
 SET
     passengerID = :passenger_id_from_dropdown_Input,
-    flighID = :flight_id_from_dropdown_Input,
+    flightID = :flight_id_from_dropdown_Input,
     price = :priceInput,
     seatNumber = :seatNumberInput
 WHERE ticketID = ticket_ID_from_the_update_form;
