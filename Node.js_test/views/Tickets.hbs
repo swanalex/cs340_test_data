@@ -54,7 +54,7 @@
         <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
-    
+
     <label for="add-tickets-flightID">Select a Flight: </label>
     <select name="add-tickets-flightID" id="add-tickets-flightID">
         <option value="">Select a Flight</option>
@@ -71,3 +71,39 @@
 
     <input type="submit">
 </form>
+
+<h2>Update A Ticket</h2>
+<p>To update a specific ticket, select the ticket you wish to update. Then select new values for its attributes. </p>
+<form id="update-ticket-form-ajax">
+    <label for="update-ticket-ticketID">Ticket </label>
+    <select name="input-ticketID" id="update-ticket-ticketID">
+        <option value="test">Select a Ticket</option>
+        {{#each passengers}}
+        <option value="{{this.ticketID}}">{{this.firstName}} {{this.lastName}} {{this.originDestination}}</option>
+        {{/each}}
+    </select>
+    <label for="update-ticket-passengerID">Passenger </label>
+    <select name="input-passengerID" id="update-ticket-passengerID">
+        <option value="test">Select a Passenger</option>
+        {{#each passengers}}
+        <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-tickets-flightID">Flight: </label>
+    <select name="input-flightID" id="update-ticket-flightID">
+        <option>Select a Flight</option>
+        {{#each flights}}
+        <option value="{{this.flightID}}">{{this.originDestination}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-tickets-price">Price: </label>
+    <input type="text" name="update-tickets-price" id="update-tickets-price">
+
+    <label for="update-tickets-seatNumber">Seat Number: </label>
+    <input type="text" name="update-tickets-seatNumber" id="update-tickets-seatNumber">
+    <input type="submit">
+
+</form>
+<script src="./js/updateTicket.js"></script>
