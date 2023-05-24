@@ -142,10 +142,6 @@ app.post('/add-creditCards-form', function (req, res) {
 })
 
 
-
-
-
-
 app.post('/add-tickets-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -224,58 +220,6 @@ app.delete('/delete-tickets-ajax/', function (req, res, next) {
         }
     })
 });
-
-
-app.post('/add-tickets-form', function (req, res) {
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Tickets (passengerID, flightID, price, seatNumber) VALUES ('${data['add-tickets-passengerID']}', 
-        '${data['add-tickets-flightID']}', '${data['add-tickets-price']}', '${data['add-tickets-seatNumber']}')`;
-    db.pool.query(query1, function (error, rows, fields) {
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else {
-            res.redirect('/Tickets.hbs');
-        }
-    })
-})
-
-
-
-app.delete('/delete-tickets-ajax/', function (req, res, next) {
-    let data = req.body;
-    let ticketID = parseInt(data.id);
-    let deleteTicket = `DELETE FROM Tickets WHERE ticketID = ?`;
-
-
-    // Run the 1st query
-    db.pool.query(deleteTicket, [ticketID], function (error, rows, fields) {
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-        } else {
-            // Run the second query
-            res.redirect('/Tickets.hbs');
-        }
-    })
-});
-
-
-
-
 
 
 /*
