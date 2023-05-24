@@ -71,7 +71,22 @@ app.get('/CreditCards.hbs', function (req, res) {
 });
 
 
+app.get('/Tickets.hbs', function (req, res) {
+    let query1 = "SELECT Tickets.ticketID, CONCAT(Passengers.firstName, ' ', Passengers.lastName) AS passengerFullName, CONCAT(A1.code, '-', A2.code) AS originDestination, Tickets.price, Tickets.seatNumber FROM Tickets JOIN Passengers ON Tickets.passengerID = Passengers.passengerID JOIN Flights ON Tickets.flightID = Flights.flightID JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID ORDER BY Tickets.ticketID;";
+    let query2 = "SELECT * FROM Passengers;";
+    let query3 = "SELECT CONCAT(a1.code, ' -> ', a2.code) AS originDestination, f.flightID FROM Flights f JOIN Airports a1 ON f.originAirportID = a1.airportID JOIN Airports a2 ON f.destinationAirportID = a2.airportID;"
 
+    db.pool.query(query1, function (error, rows, fields) {
+        let tickets = rows;
+        db.pool.query(query2, function (error, rows, fields) {
+            let passengers = rows;
+            db.pool.query(query3, function (errors, rows, fields) {
+                let flights = rows;
+                res.render('Tickets', { data: tickets, passengers: passengers, flights: flights })
+            })
+        })                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});
 
 
 app.post('/add-passengers-form', function (req, res) {
