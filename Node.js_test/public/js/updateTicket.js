@@ -25,7 +25,7 @@ updateTicketForm.addEventListener("submit", function (e) {
   // currently the database table for tickets not allow updating FK values to NULL
   // so we must abort if NULL for passengerID or ticketID
 
-  if (isNaN(flightValue) || isNaN(passengerValue) || isNaN(seatNumberValue)) {
+  if (isNaN(flightIDValue) || isNaN(passengerIDValue) || isNaN(seatNumberValue)) {
     return;
   }
 

@@ -78,8 +78,9 @@
     <label for="update-ticket-ticketID">Ticket </label>
     <select name="input-ticketID" id="update-ticket-ticketID">
         <option value="test">Select a Ticket</option>
-        {{#each passengers}}
-        <option value="{{this.ticketID}}">{{this.firstName}} {{this.lastName}} {{this.originDestination}}</option>
+        {{#each data}}
+        <option value="{{this.ticketID}}">{{this.passengerFullName}}
+            {{this.originDestination}}</option>
         {{/each}}
     </select>
     <label for="update-ticket-passengerID">Passenger </label>

@@ -71,7 +71,22 @@ app.get('/CreditCards.hbs', function (req, res) {
 });
 
 
+app.get('/Tickets.hbs', function (req, res) {
+    let query1 = "SELECT Tickets.ticketID, CONCAT(Passengers.firstName, ' ', Passengers.lastName) AS passengerFullName, CONCAT(A1.code, '-', A2.code) AS originDestination, Tickets.price, Tickets.seatNumber FROM Tickets JOIN Passengers ON Tickets.passengerID = Passengers.passengerID JOIN Flights ON Tickets.flightID = Flights.flightID JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID ORDER BY Tickets.ticketID;";
+    let query2 = "SELECT * FROM Passengers;";
+    let query3 = "SELECT CONCAT(a1.code, ' -> ', a2.code) AS originDestination, f.flightID FROM Flights f JOIN Airports a1 ON f.originAirportID = a1.airportID JOIN Airports a2 ON f.destinationAirportID = a2.airportID;"
 
+    db.pool.query(query1, function (error, rows, fields) {
+        let tickets = rows;
+        db.pool.query(query2, function (error, rows, fields) {
+            let passengers = rows;
+            db.pool.query(query3, function (errors, rows, fields) {
+                let flights = rows;
+                res.render('Tickets', { data: tickets, passengers: passengers, flights: flights })
+            })
+        })                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});
 
 
 app.post('/add-passengers-form', function (req, res) {
@@ -169,15 +184,22 @@ app.post('/add-tickets-form', function (req, res) {
 })
 
 app.put('/put-tickets-ajax/', function (req, res, next) {
+    console.log("update request processing")
     let data = req.body;
 
-    let ticketID = parseInt(data.ticketID);
 
-    let queryUpdateTicket = `UPDATE Tickets SET passengerID = '${data['passengerID']}', flightID = '${data['flightID']}', price = '${data['price']}', seatNumber '${data['seatNumber']}' WHERE Tickets.ticketID = '${data['ticketID']}'`;
+    let ticketID = parseInt(data.ticketID);
+    let passengerID = parseInt(data.passengerID);
+    let flightID = parseINT(data.flightID);
+    let price = parseINT(data.price);
+    let seatNumber = parseINT(data.seatNumber)
+
+    let queryUpdateTicket = `UPDATE Tickets SET passengerID = ?, flightID = ?, price = ?, seatNumber = ? WHERE ticketID = ?`;
+    console.log(queryUpdateTicket)
     let selectTicket = `SELECT * FROM Tickets WHERE ticketID = ?`;
 
     // Run the 1st query
-    db.pool.query(queryUpdateTicket, [ticketID], function (error, rows, fields) {
+    db.pool.query(queryUpdateTicket, [passengerID, flightID, price, seatNumber, ticketID], function (error, rows, fields) {
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -205,7 +227,7 @@ app.put('/put-tickets-ajax/', function (req, res, next) {
 app.delete('/delete-tickets-ajax/', function (req, res, next) {
     let data = req.body;
     let ticketID = parseInt(data.id);
-    let deleteTicket = `DELETE FROM Tickets WHERE ticketID = ?`;
+    let deleteTicket = `DELETE FROM Tickets WHERE ticketID = ? `;
 
 
     // Run the 1st query
