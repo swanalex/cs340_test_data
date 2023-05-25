@@ -25,7 +25,7 @@ updateTicketForm.addEventListener("submit", function (e) {
   // currently the database table for tickets not allow updating FK values to NULL
   // so we must abort if NULL for passengerID or ticketID
 
-  if (isNaN(flightValue) || isNaN(passengerValue) || isNaN(seatNumberValue)) {
+  if (isNaN(flightIDValue) || isNaN(passengerIDValue)) {
     return;
   }
 
@@ -38,6 +38,7 @@ updateTicketForm.addEventListener("submit", function (e) {
     price: priceValue,
     seatNumber: seatNumberValue
   }
+  console.log('data = ', data);
 
   // Setup our AJAX request
   var xhttp = new XMLHttpRequest();
@@ -64,6 +65,7 @@ updateTicketForm.addEventListener("submit", function (e) {
 
 function updateRow(data, ticketID) {
   let parsedData = JSON.parse(data);
+  console.log('parsedData = ', parsedData);
 
   let table = document.getElementById("ticketsTable");
 
@@ -76,10 +78,16 @@ function updateRow(data, ticketID) {
       let updateRowIndex = table.getElementsByTagName("tr")[i];
 
       // Get td of ticket value
-      let td = updateRowIndex.getElementsByTagName("td")[3];
+      let td_passengerID = updateRowIndex.getElementsByTagName("td")[1];
+      let td_flightID = updateRowIndex.getElementsByTagName("td")[2];
+      let td_price = updateRowIndex.getElementsByTagName("td")[3];
+      let td_seatNumber = updateRowIndex.getElementsByTagName("td")[4];
 
       // Reassign ticket to our value we updated to
-      td.innerHTML = parsedData[0].name;
+      td_passengerID.innerHTML = parsedData[0].passengerID;
+      td_flightID.innerHTML = parsedData[0].flightID;
+      td_price.innerHTML = parsedData[0].price;
+      td_seatNumber.innerHTML = parsedData[0].seatNumber;
     }
   }
 }

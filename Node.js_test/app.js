@@ -183,16 +183,20 @@ app.post('/add-tickets-form', function (req, res) {
     })
 })
 
-app.put('/put-tickets-ajax/', function (req, res, next) {
+app.put('/put-tickets-ajax', function (req, res, next) {
     let data = req.body;
 
     let ticketID = parseInt(data.ticketID);
+    let passengerID = parseInt(data.passengerID);
+    let flightID = parseInt(data.flightID);
+    let price = data.price;
+    let seatNumber = data.seatNumber;
 
-    let queryUpdateTicket = `UPDATE Tickets SET passengerID = '${data['passengerID']}', flightID = '${data['flightID']}', price = '${data['price']}', seatNumber '${data['seatNumber']}' WHERE Tickets.ticketID = '${data['ticketID']}'`;
-    let selectTicket = `SELECT * FROM Tickets WHERE ticketID = ?`;
+    let queryUpdateTicket = `UPDATE Tickets SET passengerID = ?, flightID = ?, price = ?, seatNumber = ? WHERE Tickets.ticketID = ?;`;
+    let selectTicket = `SELECT * FROM Tickets WHERE ticketID = ?;`;
 
     // Run the 1st query
-    db.pool.query(queryUpdateTicket, [ticketID], function (error, rows, fields) {
+    db.pool.query(queryUpdateTicket, [passengerID, flightID, price, seatNumber, ticketID], function (error, rows, fields) {
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -231,7 +235,8 @@ app.delete('/delete-tickets-ajax/', function (req, res, next) {
             console.log(error);
         } else {
             // Run the second query
-            res.redirect('/Tickets.hbs');
+            res.sendStatus(204);
+            //res.redirect('/Tickets.hbs');
         }
     })
 });
