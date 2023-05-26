@@ -1,3 +1,10 @@
+// Alexander Swanson and Connor Kennedy
+// CS340 Group 61
+// The code in this application has been adapted from:
+    // https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+    
+
 // App.js
 
 /*
