@@ -1,0 +1,30 @@
+#ticketsTable {
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+tr {
+    transition: 0.3s;
+}
+
+tr:hover {
+    background-color: black;
+    color: white;
+}
+
+#delete-button {
+    width: 100%;
+    border-radius: 10px;
+    background-color: hotpink;
+    color: navajowhite;
+    transition: 0.3s;
+}
+
+#delete-button:hover {
+    cursor: pointer;
+    background-color: navajowhite;
+    color: hotpink;
+}

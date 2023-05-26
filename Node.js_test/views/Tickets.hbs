@@ -7,6 +7,8 @@
 <br>
 <a href="Tickets.hbs">Browse Tickets</a>
 
+<link rel="stylesheet" href="./css/test.css">
+
 {{!-- Create a table --}}
 <table id="ticketsTable">
 
@@ -78,7 +80,7 @@
     <label for="update-ticket-ticketID">Ticket </label>
     <select name="input-ticketID" id="update-ticket-ticketID">
         <option value="test">Select a Ticket</option>
-        {{#each passengers}}
+        {{#each data}}
         <option value="{{this.ticketID}}">{{this.firstName}} {{this.lastName}} {{this.originDestination}}</option>
         {{/each}}
     </select>
