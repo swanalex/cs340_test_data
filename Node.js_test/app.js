@@ -300,6 +300,38 @@ app.put('/put-airports-ajax', function (req, res, next) {
     })
 });
 
+app.put('/put-creditCards-ajax', function (req, res, next) {
+    let data = req.body;
+
+    let creditCardID = parseInt(data.creditCardID);
+    let passengerID = parseInt(data.passengerID);
+    let number = data.number;
+    let expiration = data.expiration;
+    let securityCode = data.securityCode;
+
+    let queryUpdateCreditCard = `UPDATE CreditCards SET passengerID = ?, number = ?, expiration = ?, securityCode = ? WHERE creditCardID = ?;`;
+    let selectCreditCard = `SELECT * FROM CreditCards WHERE creditCardID = ?;`;
+
+    db.pool.query(queryUpdateCreditCard, [passengerID, number, expiration, securityCode, creditCardID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            db.pool.query(selectCreditCard, [creditCardID], function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 app.put('/put-flights-ajax', function (req, res, next) {
     let data = req.body;
     console.log(data)
@@ -335,6 +367,40 @@ app.put('/put-flights-ajax', function (req, res, next) {
                     console.log(error);
                     res.sendStatus(400);
                 } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.put('/put-passengers-ajax', function (req, res, next) {
+    let data = req.body;
+
+    let passengerID = parseInt(data.passengerID);
+    let firstName = data.firstName;
+    let lastName = data.lastName;
+    let streetAddress = data.streetAddress;
+    let city = data.city;
+    let state = data.state;
+    let country = data.country;
+
+    let queryUpdatePassenger = `UPDATE Passengers SET firstName = ?, lastName = ?, streetAddress = ?, city = ?, state = ?, country = ? WHERE passengerID = ?;`;
+    let selectPassenger = `SELECT * FROM Passengers WHERE passengerID = ?;`;
+
+    db.pool.query(queryUpdatePassenger, [firstName, lastName, streetAddress, city, state, country, passengerID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            db.pool.query(selectPassenger, [passengerID], function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
                     res.send(rows);
                 }
             })
@@ -400,6 +466,25 @@ app.delete('/delete-airports-ajax/', function (req, res, next) {
     })
 });
 
+app.delete('/delete-creditCards-ajax/', function (req, res, next) {
+    let data = req.body;
+    let creditCardID = parseInt(data.id);
+    let deleteCreditCard = `DELETE FROM CreditCards WHERE creditCardID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteCreditCard, [creditCardID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+        } else {
+            // Run the second query
+            res.sendStatus(204);
+        }
+    })
+});
+
 app.delete('/delete-flights-ajax/', function (req, res, next) {
     let data = req.body;
     let flightID = parseInt(data.id);
@@ -420,6 +505,24 @@ app.delete('/delete-flights-ajax/', function (req, res, next) {
     })
 });
 
+app.delete('/delete-passengers-ajax/', function (req, res, next) {
+    let data = req.body;
+    let passengerID = parseInt(data.id);
+    let deletePassenger = `DELETE FROM Passengers WHERE passengerID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deletePassenger, [passengerID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+        } else {
+            // Run the second query
+            res.sendStatus(204);
+        }
+    })
+});
 
 app.delete('/delete-tickets-ajax/', function (req, res, next) {
     let data = req.body;

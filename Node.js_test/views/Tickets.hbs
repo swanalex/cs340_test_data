@@ -1,15 +1,9 @@
-<!-- Tickets.hbs -->
-<h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working!</p>
-<a href="/">Home</a>
-<br>
-<a href="Airports.hbs">Browse Airports</a>
-<br>
-<a href="Flights.hbs">Browse Flights</a>
+<h1>Tickets</h1>
+
+<a href="/">Browse Passengers</a>
 <br>
 <a href="CreditCards.hbs">Browse Credit Cards</a>
 <br>
-<a href="Tickets.hbs">Browse Tickets</a>
 
 <link rel="stylesheet" href="./css/test.css">
 
@@ -36,13 +30,12 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr data-value={{this.ticketID}}>
-            <td>{{this.ticketID}}</td>
-            <td>{{this.passengerFullName}}</td>
-            <td>{{this.originDestination}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.seatNumber}}</td>
-            <td>{{passengers.passengerID}}</td>
-            <td><button id="delete-button" onclick="deleteTicket({{this.ticketID}})">Delete</button></td>
+            <td align="center">{{this.ticketID}}</td>
+            <td align="center">{{this.passengerFullName}}</td>
+            <td align="center">{{this.originDestination}}</td>
+            <td align="center">{{this.price}}</td>
+            <td align="center">{{this.seatNumber}}</td>
+            <td align="center"><button id="delete-button" onclick="deleteTicket({{this.ticketID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -70,10 +63,10 @@
     </select>
 
     <label for="add-tickets-price">Price: </label>
-    <input type="text" name="add-tickets-price" id="add-tickets-price">
+    <input type="text" name="add-tickets-price" id="add-tickets-price" required>
 
     <label for="add-tickets-seatNumber">Seat Number: </label>
-    <input type="text" name="add-tickets-seatNumber" id="add-tickets-seatNumber">
+    <input type="text" name="add-tickets-seatNumber" id="add-tickets-seatNumber" required>
 
     <input type="submit">
 </form>
@@ -85,7 +78,7 @@
     <select name="input-ticketID" id="update-ticket-ticketID">
         <option value="test">Select a Ticket</option>
         {{#each data}}
-        <option value="{{this.ticketID}}">{{this.firstName}} {{this.lastName}} {{this.originDestination}}</option>
+        <option value="{{this.ticketID}}">{{this.ticketID}} - {{this.passengerFullName}} ({{this.originDestination}})</option>
         {{/each}}
     </select>
     <label for="update-ticket-passengerID">Passenger </label>

@@ -1,12 +1,6 @@
 <!-- index.hbs -->
-<h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working!</p>
-<a href="/">Home/Passengers</a>
-<br>
-<a href="Airports.hbs">Browse Airports</a>
-<br>
-<a href="Flights.hbs">Browse Flights</a>
-<br>
+<h1>Passengers</h1>
+
 <a href="CreditCards.hbs">Browse Credit Cards</a>
 <br>
 <a href="Tickets.hbs">Browse Tickets</a>
@@ -36,27 +30,29 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr data-value="{{this.passengerID}}">
-            <td>{{this.passengerID}}</td>
-            <td>{{this.firstName}}</td>
-            <td>{{this.lastName}}</td>
-            <td>{{this.streetAddress}}</td>
-            <td>{{this.city}}</td>
-            <td>{{this.state}}</td>
-            <td>{{this.country}}</td>
+            <td align="center">{{this.passengerID}}</td>
+            <td align="center">{{this.firstName}}</td>
+            <td align="center">{{this.lastName}}</td>
+            <td align="center">{{this.streetAddress}}</td>
+            <td align="center">{{this.city}}</td>
+            <td align="center">{{this.state}}</td>
+            <td align="center">{{this.country}}</td>
+            <td align="center"><button id="delete-button" onclick="deletePassenger({{this.passengerID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/deletePassenger.js"></script>
 
 
 <h2>Adding Data using an HTML form</h2>
 <p>To add a new passenger, please enter their information below and click `Submit`!</p>
 <form id="add-passengers-form" method="POST" action="/add-passengers-form">
     <label for="input-firstName">First Name: </label>
-    <input type="text" name="input-firstName" id="input-firstName">
-
+    <input type="text" name="input-firstName" id="input-firstName" required>
+    
     <label for="input-lastName">Last Name: </label>
-    <input type="text" name="input-lastName" id="input-lastName">
+    <input type="text" name="input-lastName" id="input-lastName" required>
 
     <label for="input-streetAddress">Street Address: </label>
     <input type="text" name="input-streetAddress" id="input-streetAddress">
@@ -71,8 +67,41 @@
     <input type="text" name="input-country" id="input-country">
 
     <input type="submit">
+</form>
 
 
+<h2>Update A Passenger</h2>
+<p>To update a specific passenger, select the passenger you wish to update. Then enter new values for its attributes. </p>
+<form id="update-passenger-form-ajax">
+    <label for="update-passenger-passengerID">Passenger: </label>
+    <select name="input-passengerID" id="update-passenger-passengerID">
+        <option value="test">Select a Passenger</option>
+        {{#each data}}
+        <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
+        {{/each}}
+    </select>
 
+    <label for="update-passenger-firstName">First Name: </label>
+    <input type="text" name="update-passenger-firstName" id="update-passenger-firstName" required>
+
+    <label for="update-passenger-lastName">Last Name: </label>
+    <input type="text" name="update-passenger-lastName" id="update-passenger-lastName" required>
+
+    <label for="update-passenger-streetAddress">Street Address: </label>
+    <input type="text" name="update-passenger-streetAddress" id="update-passenger-streetAddress">
+
+    <br>
+
+    <label for="update-passenger-city">City: </label>
+    <input type="text" name="update-passenger-city" id="update-passenger-city">
+
+    <label for="update-passenger-state">State: </label>
+    <input type="text" name="update-passenger-state" id="update-passenger-state">
+
+    <label for="update-passenger-country">Country: </label>
+    <input type="text" name="update-passenger-country" id="update-passenger-country">
+
+    <input type="submit">
 
 </form>
+<script src="./js/updatePassenger.js"></script>

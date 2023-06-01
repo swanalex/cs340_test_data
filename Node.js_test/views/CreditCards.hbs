@@ -1,14 +1,14 @@
 <!-- index.hbs -->
-<h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working!</p>
-<a href="/">Home</a>
-<br>
-<a href="CreditCards.hbs">Browse Credit Cards</a>
+<h1>Credit Cards</h1>
+
+<a href="/">Browse Passengers</a>
 <br>
 <a href="Tickets.hbs">Browse Tickets</a>
 
+<link rel="stylesheet" href="./css/test.css">
+
 {{!-- Create a table --}}
-<table>
+<table id="creditCardsTable">
 
     {{!-- Header section --}}
     <thead>
@@ -30,15 +30,17 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.creditCardID}}</td>
-            <td>{{this.passengerID}}</td>
-            <td>{{this.number}}</td>
-            <td>{{this.expiration}}</td>
-            <td>{{this.securityCode}}</td>
+            <td align="center">{{this.creditCardID}}</td>
+            <td align="center">{{this.passengerID}}</td>
+            <td align="center">{{this.number}}</td>
+            <td align="center">{{this.expiration}}</td>
+            <td align="center">{{this.securityCode}}</td>
+            <td align="center"><button id="delete-button" onclick="deleteCreditCard({{this.creditCardID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/deleteCreditCard.js"></script>
 
 
 <h2>Adding Data using an HTML form</h2>
@@ -53,13 +55,45 @@
     </select>
     
     <label for="input-number">Number: </label>
-    <input type="text" name="input-number" id="input-number">
+    <input type="number" name="input-number" id="input-number" required>
 
     <label for="input-expiration">Expiration: </label>
-    <input type="text" name="input-expiration" id="input-expiration">
+    <input type="text" name="input-expiration" id="input-expiration" required>
 
     <label for="input-securityCode">Security: </label>
-    <input type="text" name="input-securityCode" id="input-securityCode">
+    <input type="text" name="input-securityCode" id="input-securityCode" required>
 
     <input type="submit">
 </form>
+
+
+<h2>Update A Credit Card</h2>
+<p>To update a specific credit card, select the credit card you wish to update. Then select new values for its attributes. </p>
+<form id="update-creditCards-form-ajax">
+    <label for="update-creditCard-creditCardID">Credit Card ID: </label>
+    <select name="update-creditCard-creditCardID" id="update-creditCard-creditCardID">
+        <option value="">Select a Credit Card</option>
+        {{#each data}}
+        <option value="{{this.creditCardID}}">{{this.creditCardID}}</option>
+        {{/each}}
+    </select>
+    <label for="update-creditCard-passengerID">Passenger ID: </label>
+    <select name="update-creditCard-passengerID" id="update-creditCard-passengerID">
+        <option value="">Select a Passenger</option>
+        {{#each passengers}}
+        <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="update-creditCard-number">Number: </label>
+    <input type="number" name="update-creditCard-number" id="update-creditCard-number">
+
+    <label for="update-creditCard-expiration">Expiration: </label>
+    <input type="text" name="update-creditCard-expiration" id="update-creditCard-expiration">
+
+    <label for="update-creditCard-securityCode">Security: </label>
+    <input type="text" name="update-creditCard-securityCode" id="update-creditCard-securityCode">
+
+    <input type="submit">
+</form>
+<script src="./js/updateCreditCard.js"></script>

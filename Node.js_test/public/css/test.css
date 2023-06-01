@@ -1,4 +1,5 @@
-#ticketsTable {
+#airportsTable, #creditCardsTable, 
+#flightsTable, #passengersTable, #ticketsTable {
     width: 100%;
 }
 
