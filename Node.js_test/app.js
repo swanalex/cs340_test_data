@@ -1,9 +1,9 @@
 // Alexander Swanson and Connor Kennedy
 // CS340 Group 61
 // The code in this application has been adapted from:
-    // https://github.com/osu-cs340-ecampus/nodejs-starter-app
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-    
+
 
 // App.js
 
@@ -41,6 +41,14 @@ app.get('/', function (req, res) {
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+app.get('/Airports.hbs', function (req, res) {
+    let query1 = "SELECT * FROM Airports;";               // Define our query
+
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+
+        res.render('Airports', { data: rows });                  // Render the Airports.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' 
+});
 
 app.get('/CreditCards.hbs', function (req, res) {
     let query1 = "SELECT * FROM CreditCards;";               // Define our query
@@ -136,6 +144,31 @@ app.post('/add-passengers-form', function (req, res) {
     })
 })
 
+app.post('/add-airports-form', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Airports (city, state, country, name, code) VALUES ('${data['input-city']}', 
+        '${data['input-state']}', '${data['input-country']}', '${data['input-name']}', '${data['input-code']}')`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else {
+            res.redirect('/Airports.hbs');
+        }
+    })
+})
 
 app.post('/add-creditCards-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
@@ -158,7 +191,7 @@ app.post('/add-creditCards-form', function (req, res) {
         // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
         // presents it on the screen
         else {
-            res.redirect('/');
+            res.redirect('/CreditCards.hbs');
         }
     })
 })
@@ -189,6 +222,45 @@ app.post('/add-tickets-form', function (req, res) {
         }
     })
 })
+
+app.put('/put-airports-ajax', function (req, res, next) {
+    let data = req.body;
+
+    let airportID = parseInt(data.airportID);
+    let city = data.city;
+    let state = data.state;
+    let country = data.country;
+    let name = data.name;
+    let code = data.code;
+
+    let queryUpdateAirport = `UPDATE Airports SET city = ?, state = ?, country = ?, name = ?, code = ? WHERE Airports.airportID = ?;`;
+    let selectAirport = `SELECT * FROM Airports WHERE airportID = ?;`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdateAirport, [city, state, country, name, code, airportID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else {
+            // Run the second query
+            db.pool.query(selectAirport, [airportID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 app.put('/put-tickets-ajax', function (req, res, next) {
     let data = req.body;
@@ -224,6 +296,26 @@ app.put('/put-tickets-ajax', function (req, res, next) {
                     res.send(rows);
                 }
             })
+        }
+    })
+});
+
+app.delete('/delete-airports-ajax/', function (req, res, next) {
+    let data = req.body;
+    let airportID = parseInt(data.id);
+    let deleteAirport = `DELETE FROM Airports WHERE airportID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteAirport, [airportID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+        } else {
+            // Run the second query
+            res.sendStatus(204);
+            //res.redirect('/Tickets.hbs');
         }
     })
 });

@@ -3,6 +3,10 @@
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
 <a href="/">Home</a>
 <br>
+<a href="Airports.hbs">Browse Airports</a>
+<br>
+<a href="Flights.hbs">Browse Flights</a>
+<br>
 <a href="CreditCards.hbs">Browse Credit Cards</a>
 <br>
 <a href="Tickets.hbs">Browse Tickets</a>
@@ -38,7 +42,7 @@
             <td>{{this.price}}</td>
             <td>{{this.seatNumber}}</td>
             <td>{{passengers.passengerID}}</td>
-            <td><button onclick="deleteTicket({{this.ticketID}})">Delete</button></td>
+            <td><button id="delete-button" onclick="deleteTicket({{this.ticketID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
