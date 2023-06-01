@@ -1,0 +1,101 @@
+<!-- Airports.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<a href="/">Home/Passengers</a>
+<br>
+<a href="Airports.hbs">Browse Airports</a>
+<br>
+<a href="Flights.hbs">Browse Flights</a>
+<br>
+<a href="CreditCards.hbs">Browse Credit Cards</a>
+<br>
+<a href="Tickets.hbs">Browse Tickets</a>
+
+<link rel="stylesheet" href="./css/test.css">
+
+{{!-- Create a table --}}
+<table id="airportsTable">
+
+  {{!-- Header section --}}
+  <thead>
+
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+    know what each column means when the page renders --}}
+    <tr>
+      {{#each data.[0]}}
+      <th>
+        {{@key}}
+      </th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  {{!-- Body section --}}
+  <tbody>
+
+    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+    {{#each data}}
+    <tr data-value={{this.airportID}}>
+      <td>{{this.airportID}}</td>
+      <td>{{this.city}}</td>
+      <td>{{this.state}}</td>
+      <td>{{this.country}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.code}}</td>
+      <td><button id="delete-button" onclick="deleteAirport({{this.airportID}})">Delete</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<script src="./js/deleteAirport.js"></script>
+
+<h2>Add an Airport using an HTML form</h2>
+<p>To add a new airport, please enter their information below and click `Submit`!</p>
+<form id="add-airports-form" method="POST" action="/add-airports-form">
+  <label for="input-city">City: </label>
+  <input type="text" name="input-city" id="input-city">
+
+  <label for="input-state">State (if applicable): </label>
+  <input type="text" name="input-state" id="input-state">
+
+  <label for="input-country">Country: </label>
+  <input type="text" name="input-country" id="input-country">
+
+  <label for="input-name">Name: </label>
+  <input type="text" name="input-name" id="input-name">
+
+  <label for="input-code">Code: </label>
+  <input type="text" name="input-code" id="input-code">
+
+  <input type="submit">
+
+</form>
+
+<h2>Update An Airport</h2>
+<p>To update a specific airport, select the airport you wish to update. Then select new values for its attributes. </p>
+<form id="update-airport-form-ajax">
+  <label for="update-airport-airportID">Airport </label>
+  <select name="input-airportID" id="update-airports-airportID">
+    <option value="test">Select an Airport</option>
+    {{#each data}}
+    <option value="{{this.airportID}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+  <label for="update-airport-city">City: </label>
+  <input type="text" name="update-airports-city" id="update-airports-city">
+
+  <label for="update-airport-state">State: </label>
+  <input type="text" name="update-airports-state" id="update-airports-state">
+
+  <label for="update-airport-country">Country: </label>
+  <input type="text" name="update-airports-country" id="update-airports-country">
+
+  <label for="update-airport-name">Name: </label>
+  <input type="text" name="update-airports-name" id="update-airports-name">
+
+  <label for="update-airport-code">Code: </label>
+  <input type="text" name="update-airports-code" id="update-airports-code">
+  <input type="submit">
+
+</form>
+<script src="./js/updateAirport.js"></script>

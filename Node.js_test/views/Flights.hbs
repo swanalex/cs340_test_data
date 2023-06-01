@@ -1,0 +1,145 @@
+<!-- Flights.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<a href="/">Home / Passengers</a>
+<br>
+<a href="Airports.hbs">Browse Airports</a>
+<br>
+<a href="Flights.hbs">Browse Flights</a>
+<br>
+<a href="CreditCards.hbs">Browse Credit Cards</a>
+<br>
+<a href="Tickets.hbs">Browse Tickets</a>
+
+<link rel="stylesheet" href="./css/test.css">
+
+{{!-- Create a table --}}
+<table id="flightsTable">
+
+  {{!-- Header section --}}
+  <thead>
+
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+    know what each column means when the page renders --}}
+    <tr>
+      {{#each data.[0]}}
+      <th>
+        {{@key}}
+      </th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  {{!-- Body section --}}
+  <tbody>
+
+    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+    {{#each data}}
+    <tr data-value={{this.flightID}}>
+      <td>{{this.flightID}}</td>
+      <td>{{this.originCode}}</td>
+      <td>{{this.destinationCode}}</td>
+      <td>{{this.airline}}</td>
+      <td>{{this.duration}}</td>
+      <td>{{this.numberOfSeats}}</td>
+      <td>{{this.date}}</td>
+      <td>{{this.departureTime}}</td>
+      <td>{{this.arrivalTime}}</td>
+      <td><button id="delete-button" onclick="deleteFlight({{this.flightID}})">Delete</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<script src="./js/deleteFlight.js"></script>
+
+
+<h2>Adding Flights using an HTML form</h2>
+<p>To add a new Flight, please enter the information below and click Submit!</p>
+<form id="add-flights-form" method="POST" action="/add-flights-form">
+
+  <label for="add-flights-origin">Origin: </label>
+  <select name="add-flights-origin" id="add-flights-origin">
+    <option value="">Select Origin Airport</option>
+    {{#each airports}}
+    <option value="{{this.airportID}}">[{{this.code}}] {{this.city}}, {{this.country}}</option>
+    {{/each}}
+  </select>
+
+  <label for="add-flights-destination">Destination: </label>
+  <select name="add-flights-destination" id="add-flights-destination">
+    <option value="">Select Destination Airport</option>
+    {{#each airports}}
+    <option value="{{this.airportID}}">[{{this.code}}] {{this.city}}, {{this.country}}</option>
+    {{/each}}
+  </select>
+
+  <label for="add-flights-airline">Airline: </label>
+  <input type="text" name="add-flights-airline" id="add-flights-airline">
+
+  <label for="add-flights-duration">Duration (minutes): </label>
+  <input type="int" name="add-flights-duration" id="add-flights-duration">
+
+  <label for="add-flights-seatNumber">Number of Seats: </label>
+  <input type="int" name="add-flights-seatNumber" id="add-flights-seatNumber">
+
+  <label for="add-flights-date">Date: </label>
+  <input type="date" name="add-flights-date" id="add-flights-date">
+
+  <label for="add-flights-departureTime">Departure Time: </label>
+  <input type="time" name="add-flights-departureTime" id="add-flights-departureTime">
+
+  <label for="add-flights-arrivalTime">Arrival Time: </label>
+  <input type="time" name="add-flights-arrivalTime" id="add-flights-arrivalTime">
+
+  <input type="submit">
+</form>
+
+<h2>Update A Flight</h2>
+<p>To update a specific flight, select the flight you wish to update. Then select new values for its attributes. </p>
+
+<form id="update-flight-form-ajax">
+
+  <label for="update-flight-flightID">Flight </label>
+  <select name="input-flightID" id="update-flights-flightID">
+    <option value="test">Select a Flight</option>
+    {{#each data}}
+    <option value="{{this.flightID}}">[ID {{this.flightID}}]: {{this.originCode}}-{{this.destinationCode}} </option>
+    {{/each}}
+  </select>
+
+  <label for="update-flights-origin">Origin: </label>
+  <select name="update-flights-origin" id="update-flights-origin">
+    <option value="">Select Origin Airport</option>
+    {{#each airports}}
+    <option value="{{this.airportID}}">[{{this.code}}] {{this.city}}, {{this.country}}</option>
+    {{/each}}
+  </select>
+
+  <label for="update-flights-destination">Destination: </label>
+  <select name="update-flights-destination" id="update-flights-destination">
+    <option value="">Select Destination Airport</option>
+    {{#each airports}}
+    <option value="{{this.airportID}}">[{{this.code}}] {{this.city}}, {{this.country}}</option>
+    {{/each}}
+  </select>
+
+  <label for="update-flights-airline">Airline: </label>
+  <input type="text" name="update-flights-airline" id="update-flights-airline">
+
+  <label for="update-flights-duration">Duration (minutes): </label>
+  <input type="int" name="update-flights-duration" id="update-flights-duration">
+
+  <label for="update-flights-seatNumber">Number of Seats: </label>
+  <input type="number" name="update-flights-seatNumber" id="update-flights-seatNumber">
+
+  <label for="update-flights-date">Date: </label>
+  <input type="date" name="update-flights-date" id="update-flights-date">
+
+  <label for="update-flights-departureTime">Departure Time: </label>
+  <input type="time" name="update-flights-departureTime" id="update-flights-departureTime">
+
+  <label for="update-flights-arrivalTime">Arrival Time: </label>
+  <input type="time" name="update-flights-arrivalTime" id="update-flights-arrivalTime">
+  <input type="submit">
+</form>
+<script src="./js/updateFlight.js"></script>
