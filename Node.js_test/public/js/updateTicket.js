@@ -90,4 +90,6 @@ function updateRow(data, ticketID) {
       td_seatNumber.innerHTML = parsedData[0].seatNumber;
     }
   }
+
+  location.reload()
 }

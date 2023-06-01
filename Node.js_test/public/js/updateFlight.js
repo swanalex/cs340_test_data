@@ -111,4 +111,5 @@ function updateRow(data, flightID) {
       td_arrival.innerHTML = parsedData[0].arrivalTime;
     }
   }
+  location.reload()
 }
