@@ -37,4 +37,5 @@ function deleteRow(flightID) {
       break;
     }
   }
+  alert('Flight DELETED successfully');
 }

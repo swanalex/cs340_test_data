@@ -96,4 +96,5 @@ function updateRow(data, airportID) {
       td_code.innerHTML = parsedData[0].code;
     }
   }
+  alert('Airport UPDATED successfully!');
 }

@@ -37,4 +37,5 @@ function deleteRow(airportID) {
       break;
     }
   }
+  alert('Airport DELETED successfully!');
 }
