@@ -1,12 +1,12 @@
 <!-- index.hbs -->
 <h1>Passengers</h1>
 
-<div id="link-buttons">
-  <button> <a href="/">Home/Passengers</a> </button>
-  <button> <a href="Airports.hbs">Browse Airports</a> </button>
-  <button> <a href="Flights.hbs">Browse Flights</a> </button>
-  <button> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
-  <button> <a href="Tickets.hbs">Browse Tickets</a> </button>
+<div id="link-buttons-div">
+  <button class="link-buttons"> <a href="/">Home/Passengers</a> </button>
+  <button class="link-buttons"> <a href="Airports.hbs">Browse Airports</a> </button>
+  <button class="link-buttons"> <a href="Flights.hbs">Browse Flights</a> </button>
+  <button class="link-buttons"> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
+  <button class="link-buttons"> <a href="Tickets.hbs">Browse Tickets</a> </button>
 </div>
 
 <br>
@@ -73,7 +73,7 @@
     <label for="input-age">Country: </label>
     <input type="text" name="input-country" id="input-country">
 
-    <input type="submit">
+    <input type="submit" id="submit-button">
 </form>
 
 
@@ -108,7 +108,7 @@
     <label for="update-passenger-country">Country: </label>
     <input type="text" name="update-passenger-country" id="update-passenger-country">
 
-    <input type="submit">
+    <input type="submit" id="submit-button">
 
 </form>
 <script src="./js/updatePassenger.js"></script>

@@ -1,11 +1,11 @@
 <h1>Tickets</h1>
 
-<div id="link-buttons">
-  <button> <a href="/">Home/Passengers</a> </button>
-  <button> <a href="Airports.hbs">Browse Airports</a> </button>
-  <button> <a href="Flights.hbs">Browse Flights</a> </button>
-  <button> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
-  <button> <a href="Tickets.hbs">Browse Tickets</a> </button>
+<div id="link-buttons-div">
+  <button class="link-buttons"> <a href="/">Home/Passengers</a> </button>
+  <button class="link-buttons"> <a href="Airports.hbs">Browse Airports</a> </button>
+  <button class="link-buttons"> <a href="Flights.hbs">Browse Flights</a> </button>
+  <button class="link-buttons"> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
+  <button class="link-buttons"> <a href="Tickets.hbs">Browse Tickets</a> </button>
 </div>
 
 <br>
@@ -74,7 +74,7 @@
     <label for="add-tickets-seatNumber">Seat Number: </label>
     <input type="text" name="add-tickets-seatNumber" id="add-tickets-seatNumber" required>
 
-    <input type="submit">
+    <input type="submit" id="submit-button">
 </form>
 
 <h2>Update A Ticket</h2>
@@ -108,7 +108,7 @@
 
     <label for="update-tickets-seatNumber">Seat Number: </label>
     <input type="text" name="update-tickets-seatNumber" id="update-tickets-seatNumber">
-    <input type="submit">
+    <input type="submit" id="submit-button">
 
 </form>
 <script src="./js/updateTicket.js"></script>

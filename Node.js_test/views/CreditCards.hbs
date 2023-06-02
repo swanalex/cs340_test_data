@@ -1,12 +1,12 @@
 <!-- index.hbs -->
 <h1>Credit Cards</h1>
 
-<div id="link-buttons">
-  <button> <a href="/">Home/Passengers</a> </button>
-  <button> <a href="Airports.hbs">Browse Airports</a> </button>
-  <button> <a href="Flights.hbs">Browse Flights</a> </button>
-  <button> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
-  <button> <a href="Tickets.hbs">Browse Tickets</a> </button>
+<div id="link-buttons-div">
+  <button class="link-buttons"> <a href="/">Home/Passengers</a> </button>
+  <button class="link-buttons"> <a href="Airports.hbs">Browse Airports</a> </button>
+  <button class="link-buttons"> <a href="Flights.hbs">Browse Flights</a> </button>
+  <button class="link-buttons"> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
+  <button class="link-buttons"> <a href="Tickets.hbs">Browse Tickets</a> </button>
 </div>
 
 <br>
@@ -70,7 +70,7 @@
     <label for="input-securityCode">Security: </label>
     <input type="text" name="input-securityCode" id="input-securityCode" required>
 
-    <input type="submit">
+    <input type="submit" id="submit-button">
 </form>
 
 
@@ -101,6 +101,6 @@
     <label for="update-creditCard-securityCode">Security: </label>
     <input type="text" name="update-creditCard-securityCode" id="update-creditCard-securityCode">
 
-    <input type="submit">
+    <input type="submit" id="submit-button">
 </form>
 <script src="./js/updateCreditCard.js"></script>

@@ -1,12 +1,12 @@
 <!-- Flights.hbs -->
 <h1>Flights</h1>
 
-<div id="link-buttons">
-  <button> <a href="/">Home/Passengers</a> </button>
-  <button> <a href="Airports.hbs">Browse Airports</a> </button>
-  <button> <a href="Flights.hbs">Browse Flights</a> </button>
-  <button> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
-  <button> <a href="Tickets.hbs">Browse Tickets</a> </button>
+<div id="link-buttons-div">
+  <button class="link-buttons"> <a href="/">Home/Passengers</a> </button>
+  <button class="link-buttons"> <a href="Airports.hbs">Browse Airports</a> </button>
+  <button class="link-buttons"> <a href="Flights.hbs">Browse Flights</a> </button>
+  <button class="link-buttons"> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
+  <button class="link-buttons"> <a href="Tickets.hbs">Browse Tickets</a> </button>
 </div>
 
 <br>
@@ -92,7 +92,7 @@
   <label for="add-flights-arrivalTime">Arrival Time: </label>
   <input type="time" name="add-flights-arrivalTime" id="add-flights-arrivalTime">
 
-  <input type="submit">
+  <input type="submit" id="submit-button">
 </form>
 
 <h2>Update A Flight</h2>
@@ -141,6 +141,6 @@
 
   <label for="update-flights-arrivalTime">Arrival Time: </label>
   <input type="time" name="update-flights-arrivalTime" id="update-flights-arrivalTime">
-  <input type="submit">
+  <input type="submit" id="submit-button">
 </form>
 <script src="./js/updateFlight.js"></script>
