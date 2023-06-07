@@ -2,11 +2,11 @@
 <h1>Credit Cards</h1>
 
 <div id="link-buttons-div">
-  <button class="link-buttons"> <a href="/">Home/Passengers</a> </button>
-  <button class="link-buttons"> <a href="Airports.hbs">Browse Airports</a> </button>
-  <button class="link-buttons"> <a href="Flights.hbs">Browse Flights</a> </button>
-  <button class="link-buttons"> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
-  <button class="link-buttons"> <a href="Tickets.hbs">Browse Tickets</a> </button>
+    <button class="link-buttons"> <a href="/">Home/Passengers</a> </button>
+    <button class="link-buttons"> <a href="Airports.hbs">Browse Airports</a> </button>
+    <button class="link-buttons"> <a href="Flights.hbs">Browse Flights</a> </button>
+    <button class="link-buttons"> <a href="CreditCards.hbs">Browse Credit Cards</a> </button>
+    <button class="link-buttons"> <a href="Tickets.hbs">Browse Tickets</a> </button>
 </div>
 
 <br>
@@ -38,11 +38,16 @@
         {{#each data}}
         <tr>
             <td align="center">{{this.creditCardID}}</td>
+            {{#if passengerID}}
             <td align="center">{{this.passengerID}}</td>
+            {{else}}
+            <td align="center"><i>NULL</i></td>
+            {{/if}}
             <td align="center">{{this.number}}</td>
             <td align="center">{{this.expiration}}</td>
             <td align="center">{{this.securityCode}}</td>
-            <td align="center"><button id="delete-button" onclick="deleteCreditCard({{this.creditCardID}})">Delete</button></td>
+            <td align="center"><button id="delete-button"
+                    onclick="deleteCreditCard({{this.creditCardID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -60,7 +65,7 @@
         <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
-    
+
     <label for="input-number">Number: </label>
     <input type="number" name="input-number" id="input-number" required>
 
@@ -75,7 +80,8 @@
 
 
 <h2>Update A Credit Card</h2>
-<p>To update a specific credit card, select the credit card you wish to update. Then select new values for its attributes. </p>
+<p>To update a specific credit card, select the credit card you wish to update. Then select new values for its
+    attributes. </p>
 <form id="update-creditCards-form-ajax">
     <label for="update-creditCard-creditCardID">Credit Card ID: </label>
     <select name="update-creditCard-creditCardID" id="update-creditCard-creditCardID">
@@ -91,7 +97,7 @@
         <option value="{{this.passengerID}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
-    
+
     <label for="update-creditCard-number">Number: </label>
     <input type="number" name="update-creditCard-number" id="update-creditCard-number">
 
