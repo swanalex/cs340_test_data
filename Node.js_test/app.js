@@ -186,11 +186,14 @@ app.post('/add-airports-form', function (req, res) {
 app.post('/add-creditCards-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
+    // Block of code to enable a NULLable FK
+    if (data['input-passengerID'] == '') {
+        data['input-passengerID'] = 'NULL';
+    }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO CreditCards (passengerID, number, expiration, securityCode) VALUES ('${data['input-passengerID']}', 
-        '${data['input-number']}', '${data['input-expiration']}', '${data['securityCode']}')`;
+    query1 = `INSERT INTO CreditCards (passengerID, number, expiration, securityCode) VALUES (${data['input-passengerID']}, 
+        '${data['input-number']}', '${data['input-expiration']}', '${data['input-securityCode']}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
