@@ -8,7 +8,7 @@ updateFlightForm.addEventListener("submit", function (e) {
   // Prevent the form from submitting
   e.preventDefault();
 
-  console.log(document.getElementById("update-flights-duration"))
+
   // Get form fields we need to get data from
   let inputFlightID = document.getElementById("update-flights-flightID");
   let inputOrigin = document.getElementById("update-flights-origin");
@@ -31,13 +31,6 @@ updateFlightForm.addEventListener("submit", function (e) {
   let departureValue = inputDeparture.value;
   let arrivalValue = inputArrival.value;
 
-  // currently the database table for flights not allow updating FK values to NULL
-  // so we must abort if NULL for passengerID or flightID
-
-  //  if (isNaN(flightIDValue) || isNaN(passengerIDValue)) {
-  //  return;
-  // }
-
 
   // Put our data we want to send in a javascript object
   let data = {
@@ -51,7 +44,6 @@ updateFlightForm.addEventListener("submit", function (e) {
     departureTime: departureValue,
     arrivalTime: arrivalValue
   }
-  console.log('data = ', data);
 
   // Setup our AJAX request
   var xhttp = new XMLHttpRequest();
@@ -62,7 +54,7 @@ updateFlightForm.addEventListener("submit", function (e) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-      // Add the new data to the table
+      // Update the table with the new data
       updateRow(xhttp.response, flightIDValue);
 
     }
@@ -87,10 +79,10 @@ function updateRow(data, flightID) {
     //rows would be accessed using the "row" variable assigned in the for loop
     if (table.rows[i].getAttribute("data-value") == flightID) {
 
-      // Get the location of the row where we found the matching person ID
+      // Get the location of the row where we found the matching flightID
       let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-      // Get td of flight value
+      // Get td of each flight attribute
       let td_origin = updateRowIndex.getElementsByTagName("td")[1];
       let td_destination = updateRowIndex.getElementsByTagName("td")[2];
       let td_airline = updateRowIndex.getElementsByTagName("td")[3];
@@ -100,7 +92,7 @@ function updateRow(data, flightID) {
       let td_departure = updateRowIndex.getElementsByTagName("td")[7];
       let td_arrival = updateRowIndex.getElementsByTagName("td")[8];
 
-      // Reassign flight to our value we updated to
+      // Reassign each flight attribute to our value we updated to
       td_origin.innerHTML = parsedData[0].originAirportID;
       td_destination.innerHTML = parsedData[0].destinationAirportID;
       td_airline.innerHTML = parsedData[0].airline;

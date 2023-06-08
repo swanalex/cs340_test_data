@@ -13,7 +13,7 @@ function deleteFlight(flightID) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 204) {
 
-      // Add the new data to the table
+      // Delete the flight from the table
       deleteRow(flightID);
 
     }

@@ -22,12 +22,14 @@ updateCreditCardForm.addEventListener("submit", function (e) {
   let expirationValue = inputExpiration.value;
   let securityCodeValue = inputSecurityCode.value;
 
-  // currently the database table for tickets not allow updating FK values to NULL
-  // so we must abort if NULL for passengerID or ticketID
+  // passengerID is a NULLable FK in the CreditCards table
+  // So if there is no passengerID present, we update that value to NULL
 
-  if (isNaN(creditCardIDValue) || isNaN(passengerIDValue)) {
-    return;
+
+  if (isNaN(passengerIDValue)) {
+    passengerIDValue = 'NULL';
   }
+  console.log(passengerIDValue);
 
 
   // Put our data we want to send in a javascript object
@@ -38,7 +40,6 @@ updateCreditCardForm.addEventListener("submit", function (e) {
     expiration: expirationValue,
     securityCode: securityCodeValue
   }
-  console.log('data = ', data);
 
   // Setup our AJAX request
   var xhttp = new XMLHttpRequest();
@@ -49,12 +50,11 @@ updateCreditCardForm.addEventListener("submit", function (e) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-      // Add the new data to the table
+      // Update the table row with the new data
       updateRow(xhttp.response, creditCardIDValue);
 
     }
     else if (xhttp.readyState == 4 && xhttp.status != 200) {
-      console.log("There was an error with the input.")
     }
   }
 
@@ -65,7 +65,6 @@ updateCreditCardForm.addEventListener("submit", function (e) {
 
 function updateRow(data, creditCardID) {
   let parsedData = JSON.parse(data);
-  console.log('parsedData = ', parsedData);
 
   let table = document.getElementById("creditCardsTable");
 
@@ -74,16 +73,16 @@ function updateRow(data, creditCardID) {
     //rows would be accessed using the "row" variable assigned in the for loop
     if (table.rows[i].getAttribute("data-value") == creditCardID) {
 
-      // Get the location of the row where we found the matching person ID
+      // Get the location of the row where we found the matching creditCardID
       let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-      // Get td of ticket value
+      // Get td of each credit card attribute
       let td_passengerID = updateRowIndex.getElementsByTagName("td")[1];
       let td_number = updateRowIndex.getElementsByTagName("td")[2];
       let td_expiration = updateRowIndex.getElementsByTagName("td")[3];
       let td_securityCode = updateRowIndex.getElementsByTagName("td")[4];
 
-      // Reassign ticket to our value we updated to
+      // Reassign each credit card attribute to our value we updated to
       td_passengerID.innerHTML = parsedData[0].passengerID;
       td_number.innerHTML = parsedData[0].number;
       td_expiration.innerHTML = parsedData[0].expiration;

@@ -38,7 +38,6 @@ updateTicketForm.addEventListener("submit", function (e) {
     price: priceValue,
     seatNumber: seatNumberValue
   }
-  console.log('data = ', data);
 
   // Setup our AJAX request
   var xhttp = new XMLHttpRequest();
@@ -49,12 +48,11 @@ updateTicketForm.addEventListener("submit", function (e) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-      // Add the new data to the table
+      // Update the table row with the new data
       updateRow(xhttp.response, ticketIDValue);
 
     }
     else if (xhttp.readyState == 4 && xhttp.status != 200) {
-      console.log("There was an error with the input.")
     }
   }
 
@@ -65,7 +63,6 @@ updateTicketForm.addEventListener("submit", function (e) {
 
 function updateRow(data, ticketID) {
   let parsedData = JSON.parse(data);
-  console.log('parsedData = ', parsedData);
 
   let table = document.getElementById("ticketsTable");
 
@@ -74,22 +71,22 @@ function updateRow(data, ticketID) {
     //rows would be accessed using the "row" variable assigned in the for loop
     if (table.rows[i].getAttribute("data-value") == ticketID) {
 
-      // Get the location of the row where we found the matching person ID
+      // Get the location of the row where we found the matching ticketID
       let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-      // Get td of ticket value
+      // Get td of ticket attribute
       let td_passengerID = updateRowIndex.getElementsByTagName("td")[1];
       let td_flightID = updateRowIndex.getElementsByTagName("td")[2];
       let td_price = updateRowIndex.getElementsByTagName("td")[3];
       let td_seatNumber = updateRowIndex.getElementsByTagName("td")[4];
 
-      // Reassign ticket to our value we updated to
+      // Reassign each ticket attribute to the new value we updated to
       td_passengerID.innerHTML = parsedData[0].passengerID;
       td_flightID.innerHTML = parsedData[0].flightID;
       td_price.innerHTML = parsedData[0].price;
       td_seatNumber.innerHTML = parsedData[0].seatNumber;
     }
   }
-
+  alert('Ticket UPDATED successfully!');
   location.reload()
 }

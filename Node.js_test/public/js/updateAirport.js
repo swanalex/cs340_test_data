@@ -25,14 +25,6 @@ updateAirportForm.addEventListener("submit", function (e) {
   let codeValue = inputCode.value;
 
 
-  // currently the database table for airports not allow updating FK values to NULL
-  // so we must abort if NULL for passengerID or airportID
-
-  //  if (isNaN(flightIDValue) || isNaN(passengerIDValue)) {
-  //  return;
-  // }
-
-
   // Put our data we want to send in a javascript object
   let data = {
     airportID: airportIDValue,
@@ -42,7 +34,6 @@ updateAirportForm.addEventListener("submit", function (e) {
     name: nameValue,
     code: codeValue
   }
-  console.log('data = ', data);
 
   // Setup our AJAX request
   var xhttp = new XMLHttpRequest();
@@ -53,12 +44,11 @@ updateAirportForm.addEventListener("submit", function (e) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-      // Add the new data to the table
+      // Update the table row to have the new data
       updateRow(xhttp.response, airportIDValue);
 
     }
     else if (xhttp.readyState == 4 && xhttp.status != 200) {
-      console.log("There was an error with the input.")
     }
   }
 
@@ -69,7 +59,6 @@ updateAirportForm.addEventListener("submit", function (e) {
 
 function updateRow(data, airportID) {
   let parsedData = JSON.parse(data);
-  console.log('parsedData = ', parsedData);
 
   let table = document.getElementById("airportsTable");
 
@@ -78,17 +67,17 @@ function updateRow(data, airportID) {
     //rows would be accessed using the "row" variable assigned in the for loop
     if (table.rows[i].getAttribute("data-value") == airportID) {
 
-      // Get the location of the row where we found the matching person ID
+      // Get the location of the row where we found the matching airportID
       let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-      // Get td of airport value
+      // Get td of each airport value
       let td_city = updateRowIndex.getElementsByTagName("td")[1];
       let td_state = updateRowIndex.getElementsByTagName("td")[2];
       let td_country = updateRowIndex.getElementsByTagName("td")[3];
       let td_name = updateRowIndex.getElementsByTagName("td")[4];
       let td_code = updateRowIndex.getElementsByTagName("td")[5];
 
-      // Reassign airport to our value we updated to
+      // Reassign each airport attribute to our value we updated to
       td_city.innerHTML = parsedData[0].city;
       td_state.innerHTML = parsedData[0].state;
       td_country.innerHTML = parsedData[0].country;

@@ -34,7 +34,8 @@
   {{!-- Body section --}}
   <tbody>
 
-    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+    {{!-- For each row, print the flightID, originCode, destinationCode, airline, duration, numberOfSeats,
+      date, departureTime, and arrivalTime in order --}}
     {{#each data}}
     <tr data-value={{this.flightID}}>
       <td>{{this.flightID}}</td>
@@ -53,7 +54,7 @@
 </table>
 <script src="./js/deleteFlight.js"></script>
 
-
+{{!-- Form for adding a new flight using HTML --}}
 <h2>Adding Flights using an HTML form</h2>
 <p>To add a new Flight, please enter the information below and click Submit!</p>
 <form id="add-flights-form" method="POST" action="/add-flights-form">
@@ -95,6 +96,7 @@
   <input type="submit" id="submit-button">
 </form>
 
+{{!-- Form for updating a flight using ajax --}}
 <h2>Update A Flight</h2>
 <p>To update a specific flight, select the flight you wish to update. Then select new values for its attributes. </p>
 

@@ -34,8 +34,8 @@ CREATE OR REPLACE TABLE Airports (
     city text(50) NOT NULL,
     state text(50),
     country text(50) NOT NULL,
-    name varchar(50),
-    code varchar(50),
+    name varchar(50) NOT NULL,
+    code varchar(50) NOT NULL,
     PRIMARY KEY (airportID)
 );
 

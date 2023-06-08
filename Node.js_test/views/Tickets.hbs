@@ -1,3 +1,4 @@
+<!-- Tickets.hbs -->
 <h1>Tickets</h1>
 
 <div id="link-buttons-div">
@@ -33,7 +34,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the ticketID, full name of passenger, origin->destination, price, and seatNumber in order --}}
         {{#each data}}
         <tr data-value={{this.ticketID}}>
             <td align="center">{{this.ticketID}}</td>
@@ -48,7 +49,7 @@
 </table>
 <script src="./js/deleteTicket.js"></script>
 
-
+{{!-- Form for adding a new ticket using HTML --}}
 <h2>Adding Tickets using an HTML form</h2>
 <p>To add a new Ticket, please enter the information below and click Submit!</p>
 <form id="add-tickets-form" method="POST" action="/add-tickets-form">
@@ -77,6 +78,7 @@
     <input type="submit" id="submit-button">
 </form>
 
+{{!-- Form for updating a ticket using ajax --}}
 <h2>Update A Ticket</h2>
 <p>To update a specific ticket, select the ticket you wish to update. Then select new values for its attributes. </p>
 <form id="update-ticket-form-ajax">

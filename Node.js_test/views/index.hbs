@@ -34,7 +34,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the passengerID, firstName, lastName, streetAddress, city, state, country in order --}}
         {{#each data}}
         <tr data-value="{{this.passengerID}}">
             <td align="center">{{this.passengerID}}</td>
@@ -51,7 +51,7 @@
 </table>
 <script src="./js/deletePassenger.js"></script>
 
-
+{{!-- Form for adding a new passenger using HTML --}}
 <h2>Adding Data using an HTML form</h2>
 <p>To add a new passenger, please enter their information below and click `Submit`!</p>
 <form id="add-passengers-form" method="POST" action="/add-passengers-form">
@@ -76,7 +76,7 @@
     <input type="submit" id="submit-button">
 </form>
 
-
+{{!-- Form for updating a passenger using ajax --}}
 <h2>Update A Passenger</h2>
 <p>To update a specific passenger, select the passenger you wish to update. Then enter new values for its attributes. </p>
 <form id="update-passenger-form-ajax">

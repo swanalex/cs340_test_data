@@ -34,7 +34,7 @@
   {{!-- Body section --}}
   <tbody>
 
-    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+    {{!-- For each row, print the airportID, city, state, country, name, and code in order --}}
     {{#each data}}
     <tr data-value={{this.airportID}}>
       <td>{{this.airportID}}</td>
@@ -50,28 +50,30 @@
 </table>
 <script src="./js/deleteAirport.js"></script>
 
+{{!-- Form for adding a new airport using HTML --}}
 <h2>Add an Airport using an HTML form</h2>
 <p>To add a new airport, please enter their information below and click `Submit`!</p>
 <form id="add-airports-form" method="POST" action="/add-airports-form">
   <label for="input-city">City: </label>
-  <input type="text" name="input-city" id="input-city">
+  <input type="text" name="input-city" id="input-city" required>
 
   <label for="input-state">State (if applicable): </label>
   <input type="text" name="input-state" id="input-state">
 
   <label for="input-country">Country: </label>
-  <input type="text" name="input-country" id="input-country">
+  <input type="text" name="input-country" id="input-country" required>
 
   <label for="input-name">Name: </label>
-  <input type="text" name="input-name" id="input-name">
+  <input type="text" name="input-name" id="input-name" required>
 
   <label for="input-code">Code: </label>
-  <input type="text" name="input-code" id="input-code">
+  <input type="text" name="input-code" id="input-code" required>
 
   <input type="submit" id="submit-button">
 
 </form>
 
+{{!-- Form for updating an airport using ajax --}}
 <h2>Update An Airport</h2>
 <p>To update a specific airport, select the airport you wish to update. Then select new values for its attributes. </p>
 <form id="update-airport-form-ajax">
@@ -83,19 +85,19 @@
     {{/each}}
   </select>
   <label for="update-airport-city">City: </label>
-  <input type="text" name="update-airports-city" id="update-airports-city">
+  <input type="text" name="update-airports-city" id="update-airports-city" required>
 
   <label for="update-airport-state">State: </label>
   <input type="text" name="update-airports-state" id="update-airports-state">
 
   <label for="update-airport-country">Country: </label>
-  <input type="text" name="update-airports-country" id="update-airports-country">
+  <input type="text" name="update-airports-country" id="update-airports-country" required>
 
   <label for="update-airport-name">Name: </label>
-  <input type="text" name="update-airports-name" id="update-airports-name">
+  <input type="text" name="update-airports-name" id="update-airports-name" required>
 
   <label for="update-airport-code">Code: </label>
-  <input type="text" name="update-airports-code" id="update-airports-code">
+  <input type="text" name="update-airports-code" id="update-airports-code" required>
   <input type="submit" id="submit-button">
 
 </form>

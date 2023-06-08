@@ -1,7 +1,3 @@
-// Alexander Swanson and Connor Kennedy
-// CS340 Group 61
-// The code in this application has been adapted from:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 
 
@@ -31,7 +27,12 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
     ROUTES
 */
 
+/*
+    GET routes - (R step (READ) of CRUD)
+*/
 
+
+// GET route for passengers
 app.get('/', function (req, res) {
     let query1 = "SELECT * FROM Passengers;";               // Define our query
 
@@ -41,6 +42,7 @@ app.get('/', function (req, res) {
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+// GET route for Airports
 app.get('/Airports.hbs', function (req, res) {
     let query1 = "SELECT * FROM Airports;";               // Define our query
 
@@ -50,6 +52,7 @@ app.get('/Airports.hbs', function (req, res) {
     })                                                      // an object where 'data' is equal to the 'rows' 
 });
 
+// GET route for creditCards
 app.get('/CreditCards.hbs', function (req, res) {
     let query1 = "SELECT * FROM CreditCards;";               // Define our query
     let query2 = "SELECT * FROM Passengers;";
@@ -59,8 +62,6 @@ app.get('/CreditCards.hbs', function (req, res) {
         let creditCards = rows;
         db.pool.query(query2, (error, rows, fields) => {
             let passengers = rows;
-
-            // BEGINNING OF NEW CODE
 
             // Construct an object for reference in the table
             // Array.map is awesome for doing something with each
@@ -72,68 +73,63 @@ app.get('/CreditCards.hbs', function (req, res) {
                 passengermap[id] = passenger["firstName"] + " " + passenger["lastName"];
             })
 
-            // Overwrite the homeworld ID with the name of the planet in the people object
+            // Overwrite the passengerID with the name of the passenger
             creditCards = creditCards.map(person => {
                 return Object.assign(person, { passengerID: passengermap[person.passengerID] })
             })
-
-            // END OF NEW CODE
-
 
             return res.render('CreditCards', { data: creditCards, passengers: passengers });
         })
     })
 });
 
+// GET route for flights
 app.get('/Flights.hbs', function (req, res) {
+    // we use a join here to be able to display the origin and destination of the flight
     let query1 = "SELECT Flights.flightID, A1.code AS originCode, A2.code AS destinationCode, Flights.airline, Flights.duration, Flights.numberOfSeats, Flights.date, Flights.departureTime, Flights.arrivalTime FROM Flights JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID ORDER BY Flights.flightID;";
     let query2 = "SELECT * FROM Airports;";
 
-    db.pool.query(query1, function (error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {          // execute the first query
         let flights = rows;
-        db.pool.query(query2, function (error, rows, fields) {
+        db.pool.query(query2, function (error, rows, fields) {      // execute the second query
             let airports = rows;
             res.render('Flights', { data: flights, airports: airports })
 
-        })                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        })                  
+    })                                                      
 });
 
+// GET route for tickets
 app.get('/Tickets.hbs', function (req, res) {
+    // we use a join here to be able to display 'user-friendly' info in place of passengerID and flightID
     let query1 = "SELECT Tickets.ticketID, CONCAT(Passengers.firstName, ' ', Passengers.lastName) AS passengerFullName, CONCAT(A1.code, '-', A2.code) AS originDestination, Tickets.price, Tickets.seatNumber FROM Tickets JOIN Passengers ON Tickets.passengerID = Passengers.passengerID JOIN Flights ON Tickets.flightID = Flights.flightID JOIN Airports AS A1 ON Flights.originAirportID = A1.airportID JOIN Airports AS A2 ON Flights.destinationAirportID = A2.airportID ORDER BY Tickets.ticketID;";
     let query2 = "SELECT * FROM Passengers;";
+    // we use another join here to display all the available flights in the database as 'user-friendly' info in the dropdown menus for adding/updating a flight
     let query3 = "SELECT CONCAT(a1.code, ' -> ', a2.code) AS originDestination, f.flightID FROM Flights f JOIN Airports a1 ON f.originAirportID = a1.airportID JOIN Airports a2 ON f.destinationAirportID = a2.airportID;"
 
-    db.pool.query(query1, function (error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {              // execute first query
         let tickets = rows;
-        db.pool.query(query2, function (error, rows, fields) {
+        db.pool.query(query2, function (error, rows, fields) {          // execute second query
             let passengers = rows;
-            db.pool.query(query3, function (errors, rows, fields) {
+            db.pool.query(query3, function (errors, rows, fields) {     // execute third query
                 let flights = rows;
                 res.render('Tickets', { data: tickets, passengers: passengers, flights: flights })
             })
-        })                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        })                  
+    })                                                      
 });
 
 
+
+/*
+    POST routes - (C step (CREATE) of CRUD)
+*/
+
+
+// POST route for passengers
 app.post('/add-passengers-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
-    // Capture NULL values
-
-    // let homeworld = parseInt(data['input-homeworld']);
-    // if (isNaN(homeworld))
-    // {
-    //     homeworld = 'NULL'
-    // }
-
-    // let age = parseInt(data['input-age']);
-    // if (isNaN(age))
-    // {
-    //     age = 'NULL'
-    // }
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Passengers (firstName, lastName, streetAddress, city, state, country) VALUES ('${data['input-firstName']}', 
@@ -149,14 +145,15 @@ app.post('/add-passengers-form', function (req, res) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Passengers and
+        // present it on the screen
         else {
             res.redirect('/');
         }
     })
 })
 
+// POST route for airports
 app.post('/add-airports-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -175,22 +172,26 @@ app.post('/add-airports-form', function (req, res) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Airports and
+        // present it on the screen
         else {
             res.redirect('/Airports.hbs');
         }
     })
 })
 
+// POST route for creditCards
 app.post('/add-creditCards-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
+    // Block of code to enable a NULLable FK
+    if (data['input-passengerID'] == '') {
+        data['input-passengerID'] = 'NULL';
+    }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO CreditCards (passengerID, number, expiration, securityCode) VALUES ('${data['input-passengerID']}', 
-        '${data['input-number']}', '${data['input-expiration']}', '${data['securityCode']}')`;
+    query1 = `INSERT INTO CreditCards (passengerID, number, expiration, securityCode) VALUES (${data['input-passengerID']}, 
+        '${data['input-number']}', '${data['input-expiration']}', '${data['input-securityCode']}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -201,7 +202,7 @@ app.post('/add-creditCards-form', function (req, res) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM credit cards and
         // presents it on the screen
         else {
             res.redirect('/CreditCards.hbs');
@@ -209,6 +210,7 @@ app.post('/add-creditCards-form', function (req, res) {
     })
 })
 
+// POST route for flights
 app.post('/add-flights-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -235,6 +237,7 @@ app.post('/add-flights-form', function (req, res) {
     })
 })
 
+// POST route for tickets
 app.post('/add-tickets-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -259,11 +262,21 @@ app.post('/add-tickets-form', function (req, res) {
             res.redirect('/Tickets.hbs');
         }
     })
-})
+});
 
+
+
+/*
+    PUT routes - (U step (UPDATE) of CRUD)
+*/
+
+
+// PUT route for airports
 app.put('/put-airports-ajax', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    // Get each individual attribute from the request object
     let airportID = parseInt(data.airportID);
     let city = data.city;
     let state = data.state;
@@ -271,6 +284,7 @@ app.put('/put-airports-ajax', function (req, res, next) {
     let name = data.name;
     let code = data.code;
 
+    // Create the queries
     let queryUpdateAirport = `UPDATE Airports SET city = ?, state = ?, country = ?, name = ?, code = ? WHERE Airports.airportID = ?;`;
     let selectAirport = `SELECT * FROM Airports WHERE airportID = ?;`;
 
@@ -283,7 +297,7 @@ app.put('/put-airports-ajax', function (req, res, next) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // If there was no error, we run our second query and return that data so we can use it to update the Airports
         // table on the front-end
         else {
             // Run the second query
@@ -300,24 +314,38 @@ app.put('/put-airports-ajax', function (req, res, next) {
     })
 });
 
+// PUT route for creditCards
 app.put('/put-creditCards-ajax', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    // Get each individual attribute from the request object
     let creditCardID = parseInt(data.creditCardID);
     let passengerID = parseInt(data.passengerID);
     let number = data.number;
     let expiration = data.expiration;
     let securityCode = data.securityCode;
 
+    // If there is no passengerID, we set it to NULL
+    if (isNaN(passengerID)) {
+        passengerID = null;
+    }
+
+    // Create the queries
     let queryUpdateCreditCard = `UPDATE CreditCards SET passengerID = ?, number = ?, expiration = ?, securityCode = ? WHERE creditCardID = ?;`;
     let selectCreditCard = `SELECT * FROM CreditCards WHERE creditCardID = ?;`;
 
+    // Run the first query
     db.pool.query(queryUpdateCreditCard, [passengerID, number, expiration, securityCode, creditCardID], function (error, rows, fields) {
         if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);
         }
 
+        // If there was no error, we run our second query and return that data so we can use it to update the CreditCards
+        // table on the front-end
         else {
             db.pool.query(selectCreditCard, [creditCardID], function (error, rows, fields) {
                 if (error) {
@@ -332,9 +360,12 @@ app.put('/put-creditCards-ajax', function (req, res, next) {
     })
 });
 
+// PUT route for flights
 app.put('/put-flights-ajax', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    console.log(data)
+    
+    // Get each individual attribute from the request object
     let flightID = parseInt(data.flightID);
     let originAirportID = parseInt(data.originAirportID);
     let destinationAirportID = parseInt(data.destinationAirportID);
@@ -345,6 +376,7 @@ app.put('/put-flights-ajax', function (req, res, next) {
     let departureTime = data.departureTime;
     let arrivalTime = data.departureTime;
 
+    // Crete the queries
     let queryUpdateTicket = `UPDATE Flights SET originAirportID = ?, destinationAirportID = ?, airline = ?, duration = ?, numberOfSeats = ?, date = ?, departureTime = ?, arrivalTime = ? WHERE Flights.flightID = ?;`;
     let selectTicket = `SELECT * FROM Flights WHERE flightID = ?;`;
 
@@ -357,7 +389,7 @@ app.put('/put-flights-ajax', function (req, res, next) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // If there was no error, we run our second query and return that data so we can use it to update the Flights
         // table on the front-end
         else {
             // Run the second query
@@ -374,9 +406,12 @@ app.put('/put-flights-ajax', function (req, res, next) {
     })
 });
 
+// PUT route for passengers
 app.put('/put-passengers-ajax', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    // Get each individual attribute from the request object
     let passengerID = parseInt(data.passengerID);
     let firstName = data.firstName;
     let lastName = data.lastName;
@@ -385,15 +420,21 @@ app.put('/put-passengers-ajax', function (req, res, next) {
     let state = data.state;
     let country = data.country;
 
+    // Create the queries
     let queryUpdatePassenger = `UPDATE Passengers SET firstName = ?, lastName = ?, streetAddress = ?, city = ?, state = ?, country = ? WHERE passengerID = ?;`;
     let selectPassenger = `SELECT * FROM Passengers WHERE passengerID = ?;`;
 
+    // Run the first query
     db.pool.query(queryUpdatePassenger, [firstName, lastName, streetAddress, city, state, country, passengerID], function (error, rows, fields) {
         if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);
         }
 
+        // If there was no error, we run our second query and return that data so we can use it to update the Passengers
+        // table on the front-end
         else {
             db.pool.query(selectPassenger, [passengerID], function (error, rows, fields) {
                 if (error) {
@@ -408,15 +449,19 @@ app.put('/put-passengers-ajax', function (req, res, next) {
     })
 });
 
+// PUT route for tickets
 app.put('/put-tickets-ajax', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    // Get each individual attribute from the request object
     let ticketID = parseInt(data.ticketID);
     let passengerID = parseInt(data.passengerID);
     let flightID = parseInt(data.flightID);
     let price = data.price;
     let seatNumber = data.seatNumber;
 
+    // Create the queries
     let queryUpdateTicket = `UPDATE Tickets SET passengerID = ?, flightID = ?, price = ?, seatNumber = ? WHERE Tickets.ticketID = ?;`;
     let selectTicket = `SELECT * FROM Tickets WHERE ticketID = ?;`;
 
@@ -429,7 +474,7 @@ app.put('/put-tickets-ajax', function (req, res, next) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // If there was no error, we run our second query and return that data so we can use it to update the Tickets
         // table on the front-end
         else {
             // Run the second query
@@ -446,9 +491,22 @@ app.put('/put-tickets-ajax', function (req, res, next) {
     })
 });
 
+
+
+/*
+    DELETE routes - (D step (DELETE) of CRUD)
+*/
+
+
+// DELETE route for airports
 app.delete('/delete-airports-ajax/', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
+    
+    // Get the airportID of the airport we're deleting
     let airportID = parseInt(data.id);
+
+    // Create our query
     let deleteAirport = `DELETE FROM Airports WHERE airportID = ?`;
 
 
@@ -459,16 +517,21 @@ app.delete('/delete-airports-ajax/', function (req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
         } else {
-            // Run the second query
+            // Send status 204 No Content which indicates a successful request but doesn't navigate away from the content
             res.sendStatus(204);
-            //res.redirect('/Tickets.hbs');
         }
     })
 });
 
+// DELETE route for creditCards
 app.delete('/delete-creditCards-ajax/', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
+
+    // Get the creditCardID of the credit card we're deleting
     let creditCardID = parseInt(data.id);
+
+    // Create our query
     let deleteCreditCard = `DELETE FROM CreditCards WHERE creditCardID = ?`;
 
 
@@ -479,15 +542,21 @@ app.delete('/delete-creditCards-ajax/', function (req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
         } else {
-            // Run the second query
+            // Send status 204 No Content which indicates a successful request but doesn't navigate away from the content
             res.sendStatus(204);
         }
     })
 });
 
+// DELETE route for flights
 app.delete('/delete-flights-ajax/', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
+    
+    // Get the flightID of the flight we're deleting
     let flightID = parseInt(data.id);
+
+    // Create our query
     let deleteFlight = `DELETE FROM Flights WHERE flightID = ?`;
 
 
@@ -498,16 +567,21 @@ app.delete('/delete-flights-ajax/', function (req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
         } else {
-            // Run the second query
+            // Send status 204 No Content which indicates a successful request but doesn't navigate away from the content
             res.sendStatus(204);
-            //res.redirect('/Flights.hbs');
         }
     })
 });
 
+// DELETE route for passengers
 app.delete('/delete-passengers-ajax/', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
+
+    // Get the passengerID of the passenger we're deleting
     let passengerID = parseInt(data.id);
+
+    // Create our query
     let deletePassenger = `DELETE FROM Passengers WHERE passengerID = ?`;
 
 
@@ -518,15 +592,21 @@ app.delete('/delete-passengers-ajax/', function (req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
         } else {
-            // Run the second query
+            // Send status 204 No Content which indicates a successful request but doesn't navigate away from the content
             res.sendStatus(204);
         }
     })
 });
 
+// DELETE route for tickets
 app.delete('/delete-tickets-ajax/', function (req, res, next) {
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
+
+    // Get the ticketID of the ticket we're deleting
     let ticketID = parseInt(data.id);
+
+    // Create our query
     let deleteTicket = `DELETE FROM Tickets WHERE ticketID = ?`;
 
 
@@ -537,9 +617,8 @@ app.delete('/delete-tickets-ajax/', function (req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
         } else {
-            // Run the second query
+            // Send status 204 No Content which indicates a successful request but doesn't navigate away from the content
             res.sendStatus(204);
-            //res.redirect('/Tickets.hbs');
         }
     })
 });

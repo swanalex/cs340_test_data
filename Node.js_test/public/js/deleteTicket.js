@@ -13,7 +13,7 @@ function deleteTicket(ticketID) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
 
-            // Add the new data to the table
+            // Delete the ticket from the table
             deleteRow(ticketID);
 
         }
@@ -37,4 +37,6 @@ function deleteRow(ticketID){
             break;
        }
     }
+    alert('Ticket DELETED successfully!');
+    location.reload()
 }
